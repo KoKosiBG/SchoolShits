@@ -611,7 +611,40 @@ Array.from(squares).forEach(element =>{
         if (element.style.backgroundColor === "green") {
             element.innerHTML = elm1;
            hod++;
-            
+           Array.from(squares).forEach(element3 =>{
+            if(element3.id[0] == 8 || element3.id[0] == 1){
+                if (element3.innerText === "♟" || element3.innerText === "♙") {
+                    console.log(element.innerText);
+                    if (element3.innerText === "♟") {
+                        document.getElementById("promotion").style.display = "flex";
+                        document.getElementById("queen").innerText = pieces[1][3];
+                        document.getElementById("bishop").innerText = pieces[1][2];
+                        document.getElementById("knight").innerText = pieces[1][1];
+                        document.getElementById("rook").innerText = pieces[1][0];
+                    }else if (element3.innerText === "♙") {
+                        document.getElementById("promotion").style.display = "flex";
+                        document.getElementById("queen").innerText = pieces[0][3];
+                        document.getElementById("bishop").innerText = pieces[0][2];
+                        document.getElementById("knight").innerText = pieces[0][1];
+                        document.getElementById("rook").innerText = pieces[0][0];
+                    }
+                    
+                    Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
+                        element2.addEventListener('click', ()=>{
+                            if (element3.innerText === "♟" || element3.innerText === "♙") {
+                                element3.innerText = element2.innerText;
+                            }
+                            
+                            document.getElementById("promotion").style.display = "none";
+                            
+    
+                            
+                        })
+                    })
+                }
+               
+            }
+        })
             document.getElementById(elm1ID).innerText = "";
             selectedFigure = false;
             elm1 = ""
@@ -656,38 +689,38 @@ Array.from(squares).forEach(element =>{
             }
             Color();
         }
-        Array.from(squares).forEach(element =>{
-            if(element.id[0] == 8 || element.id[0] == 1){
-                if (element.innerText === "♟" || element.innerText === "♙") {
-                    console.log(element.innerText);
-                    if (element.innerText === "♟") {
-                        document.getElementById("promotion").style.display = "flex";
-                        document.getElementById("queen").innerText = pieces[1][3];
-                        document.getElementById("bishop").innerText = pieces[1][2];
-                        document.getElementById("knight").innerText = pieces[1][1];
-                        document.getElementById("rook").innerText = pieces[1][0];
-                    }else if (element.innerText === "♙") {
-                        document.getElementById("promotion").style.display = "flex";
-                        document.getElementById("queen").innerText = pieces[0][3];
-                        document.getElementById("bishop").innerText = pieces[0][2];
-                        document.getElementById("knight").innerText = pieces[0][1];
-                        document.getElementById("rook").innerText = pieces[0][0];
-                    }
+        // Array.from(squares).forEach(element3 =>{
+        //     if(element3.id[0] == 8 || element3.id[0] == 1){
+        //         if (element3.innerText === "♟" || element3.innerText === "♙") {
+        //             console.log(element.innerText);
+        //             if (element3.innerText === "♟") {
+        //                 document.getElementById("promotion").style.display = "flex";
+        //                 document.getElementById("queen").innerText = pieces[1][3];
+        //                 document.getElementById("bishop").innerText = pieces[1][2];
+        //                 document.getElementById("knight").innerText = pieces[1][1];
+        //                 document.getElementById("rook").innerText = pieces[1][0];
+        //             }else if (element3.innerText === "♙") {
+        //                 document.getElementById("promotion").style.display = "flex";
+        //                 document.getElementById("queen").innerText = pieces[0][3];
+        //                 document.getElementById("bishop").innerText = pieces[0][2];
+        //                 document.getElementById("knight").innerText = pieces[0][1];
+        //                 document.getElementById("rook").innerText = pieces[0][0];
+        //             }
                     
-                    Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
-                        element2.addEventListener('click', ()=>{
+        //             Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
+        //                 element2.addEventListener('click', ()=>{
                             
-                            element.innerText = element2.innerText;
-                            document.getElementById("promotion").style.display = "none";
+        //                     element.innerText = element2.innerText;
+        //                     document.getElementById("promotion").style.display = "none";
                             
     
                             
-                        })
-                    })
-                }
+        //                 })
+        //             })
+        //         }
                
-            }
-        })
+        //     }
+        // })
         
     })
     
