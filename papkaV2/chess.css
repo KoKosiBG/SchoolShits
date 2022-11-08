@@ -7,7 +7,7 @@ body{
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-image: linear-gradient(to right,rgb(94, 63, 63), rgb(66, 83, 66), rgb(52, 52, 70));
+    background-image: linear-gradient(to right,rgb(71, 69, 69), rgb(85, 87, 85), rgb(65, 65, 75));
 }
 
 .container{
@@ -28,8 +28,9 @@ box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
     width: 100%;
     font-size: 50px;
     text-align: center;
-    
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .weapon-dragging-class {
@@ -71,5 +72,14 @@ box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
 }
 #rook, #knight{
     background-color: grey;
+    
+}
+.legal{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    
     
 }

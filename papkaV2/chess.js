@@ -196,7 +196,11 @@ function GreenRook(idto, color) {
         
         if (document.getElementById((Number(idto) +10+(10*i)).toString()) !== null) {
             if (document.getElementById((Number(idto) +10+(10*i)).toString()).innerText.length === 0) {
-                document.getElementById((Number(idto) +10+(10*i)).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", (Number(idto) +10+(10*i)).toString());
+                child.setAttribute("class", "legal");
+                // document.getElementById((Number(idto) +10+(10*i)).toString()).style.backgroundColor = legalColor
+                document.getElementById((Number(idto) +10+(10*i)).toString()).appendChild(child);
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) +10+(10*i)).toString()).innerText)){
                 break;
