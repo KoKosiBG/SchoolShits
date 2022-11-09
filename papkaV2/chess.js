@@ -25,7 +25,8 @@ for (let i = 0; i < 8; i++) {
 }
 function Color(){
     let boxes = document.getElementsByClassName("box")
-    
+    boxes = Array.from(boxes);
+    // setTimeout(() => {
     for (let index = 0; index < boxes.length; index++) {
         
        if(boxes[index].id[0] % 2 === 0){
@@ -44,11 +45,16 @@ function Color(){
             boxes[index].style.backgroundColor = "#786037";
         }
        }
+    //    if (boxes[index].childElementCount > 0) {
+    //     boxes[index].removeChild(document.getElementById('d' + boxes[index].id))
+    //     }
         
     }
+// }, 1)
     setTimeout(() => {
         Array.from(boxes).forEach(element =>{
             if (element.childElementCount > 0) {
+                console.log("vlizam 10001", 'd' + element.id);
                 element.removeChild(document.getElementById('d' + element.id))
             }
             
@@ -113,7 +119,7 @@ Array.from(document.getElementsByClassName("box")).forEach(element => {
     element.addEventListener('click', () =>{
         IsCastlingPosible()
         
-        if(selectedFigure && element.style.backgroundColor !== legalColor && element.style.backgroundColor !== "yellow"){
+        if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
             Color();
             selectedFigure = false;
         }
@@ -267,7 +273,11 @@ function GreenRook(idto, color) {
             else if(pieces[cl].includes(document.getElementById((Number(idto) +1+i).toString()).innerText)){
                 break;
             }else{
-                document.getElementById((Number(idto) +1+i).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + (Number(idto) + i+1).toString());
+                child.setAttribute("class", "legal");
+                document.getElementById((Number(idto) + i+1).toString()).appendChild(child);
+                // document.getElementById((Number(idto) +1+i).toString()).style.backgroundColor = legalColor
                 break;
             }
         }
@@ -289,7 +299,11 @@ function GreenRook(idto, color) {
             else if(pieces[cl].includes(document.getElementById((Number(idto) -1-(1*i)).toString()).innerText)){
                 break;
             }else{
-                document.getElementById((Number(idto) -1-(1*i)).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + (Number(idto) - i-1).toString());
+                child.setAttribute("class", "legal");
+                document.getElementById((Number(idto) - i-1).toString()).appendChild(child);
+                // document.getElementById((Number(idto) -1-(1*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
         }
@@ -374,7 +388,11 @@ function GreenBishop(idto, color) {
             else if(pieces[cl].includes(document.getElementById((Number(idto) +11+(11*i)).toString()).innerText)){
                 break;
             }else{
-                document.getElementById((Number(idto) +11+(11*i)).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + (Number(idto) +11+(11*i)).toString());
+                child.setAttribute("class", "legal");
+                document.getElementById((Number(idto) +11+(11*i)).toString()).appendChild(child);
+                // document.getElementById((Number(idto) +11+(11*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
         }
@@ -395,7 +413,11 @@ function GreenBishop(idto, color) {
             else if(pieces[cl].includes(document.getElementById((Number(idto) -11-(11*i)).toString()).innerText)){
                 break;
             }else{
-                document.getElementById((Number(idto) -11-(11*i)).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + (Number(idto) -11-(11*i)).toString());
+                child.setAttribute("class", "legal");
+                document.getElementById((Number(idto) -11-(11*i)).toString()).appendChild(child);
+                // document.getElementById((Number(idto) -11-(11*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
         }
@@ -418,7 +440,11 @@ function GreenBishop(idto, color) {
             else if(pieces[cl].includes(document.getElementById((Number(idto) +9+(i*9)).toString()).innerText)){
                 break;
             }else{
-                document.getElementById((Number(idto) +9+(i*9)).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + (Number(idto) +9+(i*9)).toString());
+                child.setAttribute("class", "legal");
+                document.getElementById((Number(idto) +9+(i*9)).toString()).appendChild(child);
+                // document.getElementById((Number(idto) +9+(i*9)).toString()).style.backgroundColor = legalColor
                 break;
             }
         }
@@ -440,7 +466,11 @@ function GreenBishop(idto, color) {
             else if(pieces[cl].includes(document.getElementById((Number(idto) -9-(i*9)).toString()).innerText)){
                 break;
             }else{
-                document.getElementById((Number(idto) -9-(i*9)).toString()).style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + (Number(idto) -9-(i*9)).toString());
+                child.setAttribute("class", "legal");
+                document.getElementById((Number(idto) -9-(i*9)).toString()).appendChild(child);
+                // document.getElementById((Number(idto) -9-(i*9)).toString()).style.backgroundColor = legalColor
                 break;
             }
         }
@@ -619,10 +649,20 @@ function GreenKing(idto, color) {
         if (king.id == ID + 1 || king.id == ID -1 || king.id == ID + 10  || king.id == ID - 10 || king.id == ID + 11 || king.id == ID + 9 || king.id == ID -9 || king.id == ID - 11) {
             selectedFigure = true;
             if (color === "white" && pieces[1].includes(squares[i].innerText) || squares[i].innerText.length === 0) {
-                squares[i].style.backgroundColor = legalColor
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + squares[i].id);
+                child.setAttribute("class", "legal");
+                squares[i].appendChild(child);
+                console.log('d' + squares[i].id);
+                // squares[i].style.backgroundColor = legalColor
             }
-            if (color === "black" && pieces[0].includes(squares[i].innerText) || squares[i].innerText.length === 0) {
-                squares[i].style.backgroundColor = legalColor
+            else if (color === "black" && pieces[0].includes(squares[i].innerText) || squares[i].innerText.length === 0) {
+                let child = document.createElement('div');
+                child.setAttribute("id", 'd' + squares[i].id);
+                child.setAttribute("class", "legal");
+                squares[i].appendChild(child);
+                console.log('d' + squares[i].id);
+                // squares[i].style.backgroundColor = legalColor
             }
             if (Wking === false && h1Rook === false && document.getElementById("16").innerText.length === 0 && document.getElementById("17").innerText.length === 0 && color === "black") {
                 document.getElementById("17").style.backgroundColor = "yellow"
@@ -682,6 +722,7 @@ function GreenKnight(idto, color) {
 
 Array.from(squares).forEach(element =>{
     element.addEventListener('click', () =>{
+        
         if (element.style.backgroundColor === "pink" && selectedFigure) {
             elm1 = element.innerText;
             elm1ID = element.id;
@@ -692,7 +733,7 @@ Array.from(squares).forEach(element =>{
             console.log("vlizam1");
             
                 console.log("vlizam2");
-                element.innerHTML = elm1;
+                element.innerText = elm1;
                hod++;
                Array.from(squares).forEach(element3 =>{
                 if(element3.id[0] == 8 || element3.id[0] == 1){
@@ -747,6 +788,7 @@ Array.from(squares).forEach(element =>{
                     document.getElementById("17").innerText = "♚";
                     document.getElementById("18").innerText = "";
                     document.getElementById("15").innerText = "";
+                    hod++
                     break;
                 case "87":
                    
@@ -754,6 +796,7 @@ Array.from(squares).forEach(element =>{
                     document.getElementById("87").innerText = "♔";
                     document.getElementById("88").innerText = "";
                     document.getElementById("85").innerText = "";
+                    hod++
                     break;
                 case "13":
                     
@@ -761,6 +804,7 @@ Array.from(squares).forEach(element =>{
                     document.getElementById("13").innerText = "♚";
                     document.getElementById("11").innerText = "";
                     document.getElementById("15").innerText = "";
+                    hod++
                     break;
                 case "83":
                     
@@ -768,6 +812,7 @@ Array.from(squares).forEach(element =>{
                     document.getElementById("83").innerText = "♔";
                     document.getElementById("81").innerText = "";
                     document.getElementById("85").innerText = "";
+                    hod++
                     break;
             
                 default:
