@@ -17,6 +17,20 @@ display:flex;
 flex-direction: column;
 border: 1px solid black;
 box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
+position: absolute;
+}
+#start{
+width: 600px;
+height: 600px;
+display:flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-around;
+border: 1px solid black;
+box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
+background-color: #786037;
+position: relative;
+z-index: 2;
 }
 .rank{
     display:flex;
@@ -82,4 +96,73 @@ box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
     position: absolute;
     
     
+}
+#input1{
+    font-size: 50px;
+    color: white;
+    position: relative;
+    z-index: 2;
+    top:45px;
+   
+}
+#name1{
+    font-size: 40px;
+    position: relative;
+    z-index: 2;
+    
+    
+}
+#startButton{
+    width: 200px;
+    height: 80px;
+    background-color: #ffee05;
+    z-index: 6;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    position: relative;
+    font-size: 45px;
+    
+}
+#input2{
+    font-size: 50px;
+    color: white;
+    position: relative;
+    z-index: 2;
+    
+}
+#name2{
+    font-size: 40px;
+    position: relative;
+    z-index: 2;
+    top:-45px;
+}
+#playerOne{
+    position: absolute;
+    top:108px;
+    left: 660px;
+    font-size: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 10px;
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    color: white;
+    background-color: black;
+}
+#playerTwo{
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    color: white;
+    background-color: black;
+    top:750px;
+    left: 660px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 10px;
+    font-size: 20px;
+}
+#denis{
+    display: none;
 }

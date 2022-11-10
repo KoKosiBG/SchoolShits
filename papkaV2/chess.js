@@ -3,6 +3,8 @@ let squares = document.getElementsByClassName("box");
 let selectedFigure = false;
 let hod = 0;
 let legalColor = "brown";
+let name1 = "";
+let name2 = "";
 let pawnW = {
 
 }
@@ -23,6 +25,16 @@ for (let i = 0; i < 8; i++) {
    }
     
 }
+document.getElementById("startButton").addEventListener('click', () =>{
+    name1 = document.getElementById("name1").value;
+    
+    name2 = document.getElementById("name2").value;
+    
+    document.getElementById("playerOne").innerText = name1
+    document.getElementById("playerTwo").innerText = name2
+    document.getElementById("start").style.display = "none"
+
+})
 function Color(){
     let boxes = document.getElementsByClassName("box")
     boxes = Array.from(boxes);
@@ -115,14 +127,22 @@ function IsCastlingPosible() {
     }
     
 }
+function IsTheGameOver() {
+    Array.from(squares).forEach(element =>{
+        
+    })
+
+    
+}
 Array.from(document.getElementsByClassName("box")).forEach(element => {
     element.addEventListener('click', () =>{
         IsCastlingPosible()
-        
-        if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
-            Color();
-            selectedFigure = false;
-        }
+
+       
+        // if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
+        //     Color();
+        //     selectedFigure = false;
+        // }
         if(element.innerText.length !== 0 && !selectedFigure){
            
             switch (element.innerText) {
@@ -536,7 +556,7 @@ function GreenPawn(idto, color) {
             // document.getElementById(idto - 20).style.backgroundColor = legalColor;
         }
     }else if(color === "white"){
-        Color();
+        // Color();
         selectedFigure = false;
     }
     if (color === "black" && document.getElementById(Number(idto) + 10).innerText.length === 0) {
@@ -554,7 +574,7 @@ function GreenPawn(idto, color) {
         }
     }
     else if(color === "black"){
-        Color();
+        // Color();
         selectedFigure = false;
     }
     if (document.getElementById(String(Number(idto) - 11)) !== null) {
@@ -640,6 +660,9 @@ function GreenPawn(idto, color) {
 //     })
 //     }
 // )
+function GameOver(params) {
+    
+}
 function GreenKing(idto, color) {
     squares = Array.from(squares)
     let king = document.getElementById(idto)
@@ -722,7 +745,10 @@ function GreenKnight(idto, color) {
 
 Array.from(squares).forEach(element =>{
     element.addEventListener('click', () =>{
-        
+        if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
+            Color();
+            selectedFigure = false;
+        }
         if (element.style.backgroundColor === "pink" && selectedFigure) {
             elm1 = element.innerText;
             elm1ID = element.id;
@@ -789,6 +815,7 @@ Array.from(squares).forEach(element =>{
                     document.getElementById("18").innerText = "";
                     document.getElementById("15").innerText = "";
                     hod++
+                    
                     break;
                 case "87":
                    
@@ -816,8 +843,10 @@ Array.from(squares).forEach(element =>{
                     break;
             
                 default:
+                    
                     break;
             }
+            selectedFigure = false;
             Color();
         }
         // Array.from(squares).forEach(element3 =>{
