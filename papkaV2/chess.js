@@ -5,6 +5,8 @@ let hod = 0;
 let legalColor = "brown";
 let name1 = "";
 let name2 = "";
+let elm1 = "";
+let elm1ID = "";
 let pawnW = {
 
 }
@@ -26,8 +28,9 @@ for (let i = 0; i < 8; i++) {
     
 }
 document.getElementById("startButton").addEventListener('click', () =>{
+    document.getElementById("playerTwo").style.display = "block";
     name1 = document.getElementById("name1").value;
-    
+    document.getElementById("playerOne").style.display = "block";
     name2 = document.getElementById("name2").value;
     
     document.getElementById("playerOne").innerText = name1
@@ -57,47 +60,24 @@ function Color(){
             boxes[index].style.backgroundColor = "#786037";
         }
        }
-    //    if (boxes[index].childElementCount > 0) {
-    //     boxes[index].removeChild(document.getElementById('d' + boxes[index].id))
-    //     }
         
     }
-// }, 1)
-    setTimeout(() => {
         Array.from(boxes).forEach(element =>{
             if (element.childElementCount > 0) {
-                console.log("vlizam 10001", 'd' + element.id);
-                element.removeChild(document.getElementById('d' + element.id))
+                
+                    let id = element.firstElementChild.id
+                    console.log(id);
+                element.removeChild(document.getElementById(id))
+                
+                
+                
             }
             
         })
-      }, 1)
     
 
 }
 Color();
-let elm1 = "";
-let elm1ID = "";
-// Array.from(squares).forEach(element =>{
-//     element.addEventListener('click', () =>{
-//         if (element.style.backgroundColor === "pink" && selectedFigure) {
-//             elm1 = element.innerText;
-//             elm1ID = element.id;
-//         }
-//         if (element.style.backgroundColor === legalColor) {
-//             element.innerHTML = elm1;
-           
-            
-//             document.getElementById(elm1ID).innerText = "";
-//             selectedFigure = false;
-//             elm1 = ""
-//             elm1ID = ""
-//             Color();
-            
-//         }
-//     })
-
-// })
 let h1Rook = false;
 let a1Rook = false;
 let a8Rook = false;
@@ -134,16 +114,123 @@ function IsTheGameOver() {
 
     
 }
+Array.from(squares).forEach(element =>{
+        element.addEventListener('mouseover', ()=>{
+            if (element.innerText.length !== 0) {
+                element.style.cursor = "pointer"
+            }
+        })
+    
+})
 Array.from(document.getElementsByClassName("box")).forEach(element => {
     element.addEventListener('click', () =>{
         IsCastlingPosible()
-
+        if (element.childElementCount > 0) {
+            console.log("vlizam1");
+            if (element.firstElementChild.className === "legal") {
+                
+                console.log("vlizam2");
+                    
+                    element.innerText = elm1;
+                   hod++;
+                   Array.from(squares).forEach(element3 =>{
+                    if(element3.id[0] == 8 || element3.id[0] == 1){
+                        if (element3.innerText === "♟" || element3.innerText === "♙") {
+                            
+                            if (element3.innerText === "♟") {
+                                document.getElementById("promotion").style.display = "flex";
+                                document.getElementById("queen").innerText = pieces[1][3];
+                                document.getElementById("bishop").innerText = pieces[1][2];
+                                document.getElementById("knight").innerText = pieces[1][1];
+                                document.getElementById("rook").innerText = pieces[1][0];
+                            }else if (element3.innerText === "♙") {
+                                document.getElementById("promotion").style.display = "flex";
+                                document.getElementById("queen").innerText = pieces[0][3];
+                                document.getElementById("bishop").innerText = pieces[0][2];
+                                document.getElementById("knight").innerText = pieces[0][1];
+                                document.getElementById("rook").innerText = pieces[0][0];
+                            }
+                            
+                            Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
+                                element2.addEventListener('click', ()=>{
+                                    if (element3.innerText === "♟" || element3.innerText === "♙") {
+                                        element3.innerText = element2.innerText;
+                                    }
+                                    
+                                    document.getElementById("promotion").style.display = "none";
+                                    
+            
+                                    
+                                })
+                            })
+                        }
+                       
+                    }
+                })
+                
+                    document.getElementById(elm1ID).innerText = "";
+                    selectedFigure = false;
+                    elm1 = ""
+                    elm1ID = ""
+                    
+                    Color();
+                        
+            } 
+            if (element.firstChild.className === "castle") {
+                
+                switch (element.id) {
+                    case "17":
+                        
+                        document.getElementById("16").innerText = "♜"; 
+                        document.getElementById("17").innerText = "♚";
+                        document.getElementById("18").innerText = "";
+                        document.getElementById("15").innerText = "";
+                        hod++
+                        
+                        break;
+                    case "87":
+                       
+                        document.getElementById("86").innerText = "♖"; 
+                        document.getElementById("87").innerText = "♔";
+                        document.getElementById("88").innerText = "";
+                        document.getElementById("85").innerText = "";
+                        hod++
+                        break;
+                    case "13":
+                        
+                        document.getElementById("14").innerText = "♜"; 
+                        document.getElementById("13").innerText = "♚";
+                        document.getElementById("11").innerText = "";
+                        document.getElementById("15").innerText = "";
+                        hod++
+                        break;
+                    case "83":
+                        
+                        document.getElementById("84").innerText = "♖"; 
+                        document.getElementById("83").innerText = "♔";
+                        document.getElementById("81").innerText = "";
+                        document.getElementById("85").innerText = "";
+                        hod++
+                        break;
+                
+                    default:
+                        
+                        break;
+                }
+                selectedFigure = false;
+                Color();
+            }
+        }    
        
-        // if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
-        //     Color();
-        //     selectedFigure = false;
-        // }
+            if(selectedFigure && element.childElementCount === 0){
+                Color();
+                selectedFigure = false;
+            }
+        
+        
+        
         if(element.innerText.length !== 0 && !selectedFigure){
+            
            
             switch (element.innerText) {
                 case pieces[0][0]:
@@ -214,7 +301,15 @@ Array.from(document.getElementsByClassName("box")).forEach(element => {
                     break;
             }
         }
+        
+        if (element.style.backgroundColor === "pink" && selectedFigure) {
+            elm1 = element.innerText;
+            elm1ID = element.id;
+            
+        }
+       
     })
+    
 });
 
 function GreenRook(idto, color) {
@@ -556,7 +651,7 @@ function GreenPawn(idto, color) {
             // document.getElementById(idto - 20).style.backgroundColor = legalColor;
         }
     }else if(color === "white"){
-        // Color();
+        Color();
         selectedFigure = false;
     }
     if (color === "black" && document.getElementById(Number(idto) + 10).innerText.length === 0) {
@@ -574,7 +669,7 @@ function GreenPawn(idto, color) {
         }
     }
     else if(color === "black"){
-        // Color();
+        Color();
         selectedFigure = false;
     }
     if (document.getElementById(String(Number(idto) - 11)) !== null) {
@@ -676,7 +771,7 @@ function GreenKing(idto, color) {
                 child.setAttribute("id", 'd' + squares[i].id);
                 child.setAttribute("class", "legal");
                 squares[i].appendChild(child);
-                console.log('d' + squares[i].id);
+                
                 // squares[i].style.backgroundColor = legalColor
             }
             else if (color === "black" && pieces[0].includes(squares[i].innerText) || squares[i].innerText.length === 0) {
@@ -684,20 +779,27 @@ function GreenKing(idto, color) {
                 child.setAttribute("id", 'd' + squares[i].id);
                 child.setAttribute("class", "legal");
                 squares[i].appendChild(child);
-                console.log('d' + squares[i].id);
+                
                 // squares[i].style.backgroundColor = legalColor
             }
+            let child = document.createElement('div');
+                child.setAttribute("class", "castle");
+                
             if (Wking === false && h1Rook === false && document.getElementById("16").innerText.length === 0 && document.getElementById("17").innerText.length === 0 && color === "black") {
-                document.getElementById("17").style.backgroundColor = "yellow"
+                document.getElementById("17").appendChild(child)
+                child.setAttribute("id", "c" + document.getElementById("17").id)
             }
             if (Wking === false && a1Rook === false && document.getElementById("12").innerText.length === 0 && document.getElementById("13").innerText.length === 0 &&document.getElementById("14").innerText.length === 0 && color === "black") {
-                document.getElementById("13").style.backgroundColor = "yellow"
+                document.getElementById("13").appendChild(child)
+                child.setAttribute("id", "c" + document.getElementById("13").id)
             }
             if (Bking === false && h8Rook === false && document.getElementById("86").innerText.length === 0 && document.getElementById("87").innerText.length === 0 && color === "white") {
-                document.getElementById("87").style.backgroundColor = "yellow"
+                document.getElementById("87").appendChild(child)
+                child.setAttribute("id", "c" + document.getElementById("87").id)
             }
             if (Bking === false && a8Rook === false && document.getElementById("82").innerText.length === 0 && document.getElementById("83").innerText.length === 0 &&document.getElementById("84").innerText.length === 0 && color === "white") {
-                document.getElementById("83").style.backgroundColor = "yellow"
+                document.getElementById("83").appendChild(child)
+                child.setAttribute("id", "c" + document.getElementById("83").id)
             }
         }
         
@@ -745,142 +847,142 @@ function GreenKnight(idto, color) {
 
 Array.from(squares).forEach(element =>{
     element.addEventListener('click', () =>{
-        if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
-            Color();
-            selectedFigure = false;
-        }
-        if (element.style.backgroundColor === "pink" && selectedFigure) {
-            elm1 = element.innerText;
-            elm1ID = element.id;
+    //     if(selectedFigure && element.childElementCount === 0 && element.style.backgroundColor !== "yellow" && element.innerText.length === 0){
+    //         Color();
+    //         selectedFigure = false;
+    //     }
+    //     if (element.style.backgroundColor === "pink" && selectedFigure) {
+    //         elm1 = element.innerText;
+    //         elm1ID = element.id;
             
-        }
+    //     }
         
-        if (element.childElementCount > 0) {
-            console.log("vlizam1");
+    //     if (element.childElementCount > 0) {
+    //         console.log("vlizam1");
             
-                console.log("vlizam2");
-                element.innerText = elm1;
-               hod++;
-               Array.from(squares).forEach(element3 =>{
-                if(element3.id[0] == 8 || element3.id[0] == 1){
-                    if (element3.innerText === "♟" || element3.innerText === "♙") {
+    //             console.log("vlizam2");
+    //             element.innerText = elm1;
+    //            hod++;
+    //            Array.from(squares).forEach(element3 =>{
+    //             if(element3.id[0] == 8 || element3.id[0] == 1){
+    //                 if (element3.innerText === "♟" || element3.innerText === "♙") {
                         
-                        if (element3.innerText === "♟") {
-                            document.getElementById("promotion").style.display = "flex";
-                            document.getElementById("queen").innerText = pieces[1][3];
-                            document.getElementById("bishop").innerText = pieces[1][2];
-                            document.getElementById("knight").innerText = pieces[1][1];
-                            document.getElementById("rook").innerText = pieces[1][0];
-                        }else if (element3.innerText === "♙") {
-                            document.getElementById("promotion").style.display = "flex";
-                            document.getElementById("queen").innerText = pieces[0][3];
-                            document.getElementById("bishop").innerText = pieces[0][2];
-                            document.getElementById("knight").innerText = pieces[0][1];
-                            document.getElementById("rook").innerText = pieces[0][0];
-                        }
+    //                     if (element3.innerText === "♟") {
+    //                         document.getElementById("promotion").style.display = "flex";
+    //                         document.getElementById("queen").innerText = pieces[1][3];
+    //                         document.getElementById("bishop").innerText = pieces[1][2];
+    //                         document.getElementById("knight").innerText = pieces[1][1];
+    //                         document.getElementById("rook").innerText = pieces[1][0];
+    //                     }else if (element3.innerText === "♙") {
+    //                         document.getElementById("promotion").style.display = "flex";
+    //                         document.getElementById("queen").innerText = pieces[0][3];
+    //                         document.getElementById("bishop").innerText = pieces[0][2];
+    //                         document.getElementById("knight").innerText = pieces[0][1];
+    //                         document.getElementById("rook").innerText = pieces[0][0];
+    //                     }
                         
-                        Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
-                            element2.addEventListener('click', ()=>{
-                                if (element3.innerText === "♟" || element3.innerText === "♙") {
-                                    element3.innerText = element2.innerText;
-                                }
+    //                     Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
+    //                         element2.addEventListener('click', ()=>{
+    //                             if (element3.innerText === "♟" || element3.innerText === "♙") {
+    //                                 element3.innerText = element2.innerText;
+    //                             }
                                 
-                                document.getElementById("promotion").style.display = "none";
+    //                             document.getElementById("promotion").style.display = "none";
                                 
         
                                 
-                            })
-                        })
-                    }
+    //                         })
+    //                     })
+    //                 }
                    
-                }
-            })
-                document.getElementById(elm1ID).innerText = "";
-                selectedFigure = false;
-                elm1 = ""
-                elm1ID = ""
+    //             }
+    //         })
+    //             document.getElementById(elm1ID).innerText = "";
+    //             selectedFigure = false;
+    //             elm1 = ""
+    //             elm1ID = ""
                 
-                Color();
+    //             Color();
                 
             
-        }
+    //     }
         
-        if (element.style.backgroundColor === "yellow") {
+    //     if (element.style.backgroundColor === "yellow") {
             
-            switch (element.id) {
-                case "17":
+    //         switch (element.id) {
+    //             case "17":
                     
-                    document.getElementById("16").innerText = "♜"; 
-                    document.getElementById("17").innerText = "♚";
-                    document.getElementById("18").innerText = "";
-                    document.getElementById("15").innerText = "";
-                    hod++
+    //                 document.getElementById("16").innerText = "♜"; 
+    //                 document.getElementById("17").innerText = "♚";
+    //                 document.getElementById("18").innerText = "";
+    //                 document.getElementById("15").innerText = "";
+    //                 hod++
                     
-                    break;
-                case "87":
+    //                 break;
+    //             case "87":
                    
-                    document.getElementById("86").innerText = "♖"; 
-                    document.getElementById("87").innerText = "♔";
-                    document.getElementById("88").innerText = "";
-                    document.getElementById("85").innerText = "";
-                    hod++
-                    break;
-                case "13":
+    //                 document.getElementById("86").innerText = "♖"; 
+    //                 document.getElementById("87").innerText = "♔";
+    //                 document.getElementById("88").innerText = "";
+    //                 document.getElementById("85").innerText = "";
+    //                 hod++
+    //                 break;
+    //             case "13":
                     
-                    document.getElementById("14").innerText = "♜"; 
-                    document.getElementById("13").innerText = "♚";
-                    document.getElementById("11").innerText = "";
-                    document.getElementById("15").innerText = "";
-                    hod++
-                    break;
-                case "83":
+    //                 document.getElementById("14").innerText = "♜"; 
+    //                 document.getElementById("13").innerText = "♚";
+    //                 document.getElementById("11").innerText = "";
+    //                 document.getElementById("15").innerText = "";
+    //                 hod++
+    //                 break;
+    //             case "83":
                     
-                    document.getElementById("84").innerText = "♖"; 
-                    document.getElementById("83").innerText = "♔";
-                    document.getElementById("81").innerText = "";
-                    document.getElementById("85").innerText = "";
-                    hod++
-                    break;
+    //                 document.getElementById("84").innerText = "♖"; 
+    //                 document.getElementById("83").innerText = "♔";
+    //                 document.getElementById("81").innerText = "";
+    //                 document.getElementById("85").innerText = "";
+    //                 hod++
+    //                 break;
             
-                default:
+    //             default:
                     
-                    break;
-            }
-            selectedFigure = false;
-            Color();
-        }
-        // Array.from(squares).forEach(element3 =>{
-        //     if(element3.id[0] == 8 || element3.id[0] == 1){
-        //         if (element3.innerText === "♟" || element3.innerText === "♙") {
-        //             console.legalColor(element.innerText);
-        //             if (element3.innerText === "♟") {
-        //                 document.getElementById("promotion").style.display = "flex";
-        //                 document.getElementById("queen").innerText = pieces[1][3];
-        //                 document.getElementById("bishop").innerText = pieces[1][2];
-        //                 document.getElementById("knight").innerText = pieces[1][1];
-        //                 document.getElementById("rook").innerText = pieces[1][0];
-        //             }else if (element3.innerText === "♙") {
-        //                 document.getElementById("promotion").style.display = "flex";
-        //                 document.getElementById("queen").innerText = pieces[0][3];
-        //                 document.getElementById("bishop").innerText = pieces[0][2];
-        //                 document.getElementById("knight").innerText = pieces[0][1];
-        //                 document.getElementById("rook").innerText = pieces[0][0];
-        //             }
+    //                 break;
+    //         }
+    //         selectedFigure = false;
+    //         Color();
+    //     }
+    //     // Array.from(squares).forEach(element3 =>{
+    //     //     if(element3.id[0] == 8 || element3.id[0] == 1){
+    //     //         if (element3.innerText === "♟" || element3.innerText === "♙") {
+    //     //             console.legalColor(element.innerText);
+    //     //             if (element3.innerText === "♟") {
+    //     //                 document.getElementById("promotion").style.display = "flex";
+    //     //                 document.getElementById("queen").innerText = pieces[1][3];
+    //     //                 document.getElementById("bishop").innerText = pieces[1][2];
+    //     //                 document.getElementById("knight").innerText = pieces[1][1];
+    //     //                 document.getElementById("rook").innerText = pieces[1][0];
+    //     //             }else if (element3.innerText === "♙") {
+    //     //                 document.getElementById("promotion").style.display = "flex";
+    //     //                 document.getElementById("queen").innerText = pieces[0][3];
+    //     //                 document.getElementById("bishop").innerText = pieces[0][2];
+    //     //                 document.getElementById("knight").innerText = pieces[0][1];
+    //     //                 document.getElementById("rook").innerText = pieces[0][0];
+    //     //             }
                     
-        //             Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
-        //                 element2.addEventListener('click', ()=>{
+    //     //             Array.from(document.getElementsByClassName("piece")).forEach(element2 =>{
+    //     //                 element2.addEventListener('click', ()=>{
                             
-        //                     element.innerText = element2.innerText;
-        //                     document.getElementById("promotion").style.display = "none";
+    //     //                     element.innerText = element2.innerText;
+    //     //                     document.getElementById("promotion").style.display = "none";
                             
     
                             
-        //                 })
-        //             })
-        //         }
+    //     //                 })
+    //     //             })
+    //     //         }
                
-        //     }
-        // })
+    //     //     }
+    //     // })
         
     })
     
