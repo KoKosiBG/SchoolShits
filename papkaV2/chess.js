@@ -785,19 +785,19 @@ function GreenKing(idto, color) {
             let child = document.createElement('div');
                 child.setAttribute("class", "castle");
                 
-            if (Wking === false && h1Rook === false && document.getElementById("16").innerText.length === 0 && document.getElementById("17").innerText.length === 0 && color === "black") {
+            if (Wking === false && h1Rook === false && document.getElementById("16").innerText.length === 0 && document.getElementById("17").innerText.length === 0 && color === "black" && document.getElementById("17").childElementCount === 0) {
                 document.getElementById("17").appendChild(child)
                 child.setAttribute("id", "c" + document.getElementById("17").id)
             }
-            if (Wking === false && a1Rook === false && document.getElementById("12").innerText.length === 0 && document.getElementById("13").innerText.length === 0 &&document.getElementById("14").innerText.length === 0 && color === "black") {
+            if (Wking === false && a1Rook === false && document.getElementById("12").innerText.length === 0 && document.getElementById("13").innerText.length === 0 &&document.getElementById("14").innerText.length === 0 && color === "black" && document.getElementById("13").childElementCount === 0) {
                 document.getElementById("13").appendChild(child)
                 child.setAttribute("id", "c" + document.getElementById("13").id)
             }
-            if (Bking === false && h8Rook === false && document.getElementById("86").innerText.length === 0 && document.getElementById("87").innerText.length === 0 && color === "white") {
+            if (Bking === false && h8Rook === false && document.getElementById("86").innerText.length === 0 && document.getElementById("87").innerText.length === 0 && color === "white" && document.getElementById("87").childElementCount === 0) {
                 document.getElementById("87").appendChild(child)
                 child.setAttribute("id", "c" + document.getElementById("87").id)
             }
-            if (Bking === false && a8Rook === false && document.getElementById("82").innerText.length === 0 && document.getElementById("83").innerText.length === 0 &&document.getElementById("84").innerText.length === 0 && color === "white") {
+            if (Bking === false && a8Rook === false && document.getElementById("82").innerText.length === 0 && document.getElementById("83").innerText.length === 0 &&document.getElementById("84").innerText.length === 0 && color === "white" && document.getElementById("83").childElementCount === 0) {
                 document.getElementById("83").appendChild(child)
                 child.setAttribute("id", "c" + document.getElementById("83").id)
             }
