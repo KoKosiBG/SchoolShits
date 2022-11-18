@@ -3,6 +3,7 @@ let squares = document.getElementsByClassName("box");
 let selectedFigure = false;
 let hod = 0;
 let legalColor = "brown";
+let dragPieces
 let name1 = "";
 let name2 = "";
 let elm1 = "";
@@ -66,7 +67,7 @@ function Color(){
             if (element.childElementCount > 0) {
                 
                     let id = element.firstElementChild.id
-                    console.log(id);
+                    
                 element.removeChild(document.getElementById(id))
                 
                 
@@ -74,6 +75,16 @@ function Color(){
             }
             
         })
+        boxes.forEach(element=>{
+            if (element.innerText.length !== 0 ) {
+                element.setAttribute("draggable", "true")
+            }
+            else{
+                element.setAttribute("draggable", "false")
+            }
+        })
+        dragPieces = document.querySelectorAll('[draggable = "true"]')
+        DragStart()
     
 
 }
@@ -122,14 +133,55 @@ Array.from(squares).forEach(element =>{
         })
     
 })
+let overID = ""
 Array.from(document.getElementsByClassName("box")).forEach(element => {
     element.addEventListener('click', () =>{
-        IsCastlingPosible()
+        Click(element)    
+    })
+    element.addEventListener("dragenter",()=>{
+        
+        overID = element.id
+       
+
+    })
+    element.addEventListener("dragend", ()=>{
+        moved.style.fontSize = font
+        
+        Click(document.getElementById(overID))
+        
+        Color()
+    })
+});
+
+let moved
+let font
+function DragStart(params) {
+    dragPieces.forEach(element =>{
+        element.addEventListener("dragstart", ()=>{
+            
+            moved = element
+            Click(element)
+            let backgroundColor = element.style.backgroundColor
+             font = element.style.fontSize
+             element.style.fontSize = "95"
+            element.style.backgroundColor = "transparent"
+            
+            setTimeout(() => {
+                element.style.backgroundColor = backgroundColor
+                element.style.fontSize = "0"
+            }, 1);
+        })
+    })
+}
+
+
+function Click(element) {
+    IsCastlingPosible()
         if (element.childElementCount > 0) {
-            console.log("vlizam1");
+           
             if (element.firstElementChild.className === "legal") {
                 
-                console.log("vlizam2");
+               
                     
                     element.innerText = elm1;
                    hod++;
@@ -307,11 +359,7 @@ Array.from(document.getElementsByClassName("box")).forEach(element => {
             elm1ID = element.id;
             
         }
-       
-    })
-    
-});
-
+}
 function GreenRook(idto, color) {
     
     squares = Array.from(squares);
