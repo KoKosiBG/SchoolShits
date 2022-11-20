@@ -8,26 +8,12 @@ let name1 = "";
 let name2 = "";
 let elm1 = "";
 let elm1ID = "";
+let moved
+let font
 let pawnW = {
 
 }
-for (let i = 0; i < 8; i++) {
-   pawnW[`${i}`] = {
-      position: i + 1,
-      moved: false
-   }
-    
-}
-let pawnB = {
 
-}
-for (let i = 0; i < 8; i++) {
-   pawnB[`${i}`] = {
-      position: i + 1,
-      moved: false
-   }
-    
-}
 document.getElementById("startButton").addEventListener('click', () =>{
     document.getElementById("playerTwo").style.display = "block";
     name1 = document.getElementById("name1").value;
@@ -78,10 +64,13 @@ function Color(){
         boxes.forEach(element=>{
             if (element.innerText.length !== 0 ) {
                 element.setAttribute("draggable", "true")
+                
             }
             else{
                 element.setAttribute("draggable", "false")
+                
             }
+            element.removeEventListener("dragstart",DragStartFunction)
         })
         dragPieces = document.querySelectorAll('[draggable = "true"]')
         DragStart()
@@ -130,6 +119,9 @@ Array.from(squares).forEach(element =>{
             if (element.innerText.length !== 0) {
                 element.style.cursor = "pointer"
             }
+            else{
+                element.style.cursor = "default"
+            }
         })
     
 })
@@ -144,6 +136,10 @@ Array.from(document.getElementsByClassName("box")).forEach(element => {
        
 
     })
+    element.addEventListener("drag", ()=>{
+        
+        element.style.cursor = "pointer"
+    })
     element.addEventListener("dragend", ()=>{
         moved.style.fontSize = font
         
@@ -153,28 +149,31 @@ Array.from(document.getElementsByClassName("box")).forEach(element => {
     })
 });
 
-let moved
-let font
+
 function DragStart(params) {
     dragPieces.forEach(element =>{
-        element.addEventListener("dragstart", ()=>{
-            
-            moved = element
-            Click(element)
-            let backgroundColor = element.style.backgroundColor
-             font = element.style.fontSize
-             element.style.fontSize = "95"
-            element.style.backgroundColor = "transparent"
-            
-            setTimeout(() => {
-                element.style.backgroundColor = backgroundColor
-                element.style.fontSize = "0"
-            }, 1);
-        })
+        element.addEventListener("dragstart", DragStartFunction)
     })
 }
 
-
+function DragStartFunction() {
+    moved = this
+    Click(moved)
+    
+            let backgroundColor = moved.style.backgroundColor
+             font = moved.style.fontSize
+             moved.style.fontSize = "95"
+             moved.style.backgroundColor = "transparent"
+              moved.style.border = "none"
+            
+           let timeout1 = setTimeout(() => {
+                moved.style.backgroundColor = backgroundColor
+                moved.style.fontSize = "0"
+                
+            }, 1);
+            // element.removeEventListener("dragstart",DragStartFunction)
+    
+}
 function Click(element) {
     IsCastlingPosible()
         if (element.childElementCount > 0) {
