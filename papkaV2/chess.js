@@ -373,10 +373,13 @@ function IsInCheck() {
     })
     Array.from(squares).forEach(element =>{
         if (element.innerText === pieces[0][4] && element.childElementCount > 0 && element.firstElementChild.className === "legal") {
-            console.log("Checked");
+            return 0
+        }
+        else if (element.innerText === pieces[1][4] && element.childElementCount > 0 && element.firstElementChild.className === "legal") {
+            return 1
         }
     })
-    Color()
+    return false
 }
 function GreenRook(idto, color) {
     
