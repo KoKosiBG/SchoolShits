@@ -10,6 +10,7 @@ let elm1 = "";
 let elm1ID = "";
 let moved
 let font
+
 let pawnW = {
 
 }
@@ -25,6 +26,7 @@ document.getElementById("startButton").addEventListener('click', () =>{
     document.getElementById("start").style.display = "none"
 
 })
+
 function Color(){
     let boxes = document.getElementsByClassName("box")
     boxes = Array.from(boxes);
@@ -78,6 +80,7 @@ function Color(){
 
 }
 Color();
+
 let h1Rook = false;
 let a1Rook = false;
 let a8Rook = false;
@@ -136,10 +139,7 @@ Array.from(document.getElementsByClassName("box")).forEach(element => {
        
 
     })
-    element.addEventListener("drag", ()=>{
-        
-        element.style.cursor = "pointer"
-    })
+    
     element.addEventListener("dragend", ()=>{
         moved.style.fontSize = font
         
@@ -176,6 +176,7 @@ function DragStartFunction() {
 }
 function Click(element) {
     IsCastlingPosible()
+   
         if (element.childElementCount > 0) {
            
             if (element.firstElementChild.className === "legal") {
@@ -281,83 +282,101 @@ function Click(element) {
         
         
         if(element.innerText.length !== 0 && !selectedFigure){
-            
+            ColorLegal(element)
            
-            switch (element.innerText) {
-                case pieces[0][0]:
-                    if (hod%2 === 1) {
-                        GreenRook(element.id, "white");
-                    }                 
-                    break;
-                case pieces[1][0]:
-                    if (hod%2 === 0) {
-                        GreenRook(element.id, "black");
-                    }      
-                    break;
-                case pieces[0][2]:
-                    if (hod%2 === 1) {
-                        GreenBishop(element.id, "white");
-                    }
-                    break;
-                case pieces[1][2]:
-                    if (hod%2 === 0) {
-                        GreenBishop(element.id, "black");
-                    }   
-                    break; 
-                case pieces[0][5]:
-                    if (hod%2 === 1) {
-                        GreenPawn(element.id, "white");
-                    } 
-                    break;
-                case pieces[1][5]:
-                    if (hod%2 === 0) {
-                        GreenPawn(element.id, "black");
-                    }   
-                    break; 
-                case pieces[0][3]:
-                    if (hod%2 === 1) {
-                        GreenBishop(element.id, "white");
-                        GreenRook(element.id, "white");
-                    }
-                     
-                    break;
-                case pieces[1][3]:
-                    if (hod%2 === 0) {
-                        GreenBishop(element.id, "black");
-                        GreenRook(element.id, "black");
-                    }  
-                    break; 
-                case pieces[0][1]:
-                    if (hod%2 === 1) {
-                        GreenKnight(element.id, "white");
-                    }  
-                    break;
-                case pieces[1][1]:
-                    if (hod%2 === 0) {
-                        GreenKnight(element.id, "black");
-                    }          
-                    break; 
-                    case pieces[0][4]:
-                        if (hod%2 === 1) {
-                            GreenKing(element.id, "white");
-                        }    
-                    break;
-                case pieces[1][4]:
-                    if (hod%2 === 0) {
-                        GreenKing(element.id, "black");
-                    }            
-                    break;
-            
-                default:
-                    break;
-            }
         }
         
         if (element.style.backgroundColor === "pink" && selectedFigure) {
+            
             elm1 = element.innerText;
             elm1ID = element.id;
+            // IsInCheck()
             
         }
+}
+function ColorLegal(element) {
+    if (element.innerText.length !== 0) {
+        switch (element.innerText) {
+            case pieces[0][0]:
+                if (hod%2 === 1) {
+                    GreenRook(element.id, "white");
+                }                 
+                break;
+            case pieces[1][0]:
+                if (hod%2 === 0) {
+                    GreenRook(element.id, "black");
+                }      
+                break;
+            case pieces[0][2]:
+                if (hod%2 === 1) {
+                    GreenBishop(element.id, "white");
+                }
+                break;
+            case pieces[1][2]:
+                if (hod%2 === 0) {
+                    GreenBishop(element.id, "black");
+                }   
+                break; 
+            case pieces[0][5]:
+                if (hod%2 === 1) {
+                    GreenPawn(element.id, "white");
+                } 
+                break;
+            case pieces[1][5]:
+                if (hod%2 === 0) {
+                    GreenPawn(element.id, "black");
+                }   
+                break; 
+            case pieces[0][3]:
+                if (hod%2 === 1) {
+                    GreenBishop(element.id, "white");
+                    GreenRook(element.id, "white");
+                }
+                 
+                break;
+            case pieces[1][3]:
+                if (hod%2 === 0) {
+                    GreenBishop(element.id, "black");
+                    GreenRook(element.id, "black");
+                }  
+                break; 
+            case pieces[0][1]:
+                if (hod%2 === 1) {
+                    GreenKnight(element.id, "white");
+                }  
+                break;
+            case pieces[1][1]:
+                if (hod%2 === 0) {
+                    GreenKnight(element.id, "black");
+                }          
+                break; 
+                case pieces[0][4]:
+                    if (hod%2 === 1) {
+                        GreenKing(element.id, "white");
+                    }    
+                break;
+            case pieces[1][4]:
+                if (hod%2 === 0) {
+                    GreenKing(element.id, "black");
+                }            
+                break;
+        
+            default:
+                break;
+        }
+        
+    }
+}
+function IsInCheck() {
+    Array.from(squares).forEach(element =>{
+        ColorLegal(element)
+    })
+    Array.from(squares).forEach(element =>{
+        if (element.innerText === pieces[0][4] && element.childElementCount > 0 && element.firstElementChild.className === "legal") {
+            console.log("Checked");
+        }
+    })
+    Color()
 }
 function GreenRook(idto, color) {
     
@@ -376,7 +395,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +10+(10*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) +10+(10*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) +10+(10*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) +10+(10*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +10+(10*i)).toString()).style.backgroundColor = legalColor
                 
             }
@@ -386,7 +408,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +10+(10*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) +10+(10*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) +10+(10*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) +10+(10*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +10+(10*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -402,7 +427,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) -10-(10*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) -10-(10*i)).toString()).appendChild(child);
+                
+                if (document.getElementById((Number(idto) -10-(10*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) -10-(10*i)).toString()).appendChild(child);
+                }
                 // document.getElementById((Number(idto) -10-(10*i)).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) -10-(10*i)).toString()).innerText)){
@@ -411,7 +439,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) -10-(10*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) -10-(10*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) -10-(10*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) -10-(10*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) -10-(10*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -429,7 +460,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) + i+1).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) + i+1).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) + i+1).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) + i+1).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) + i+1).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) +1+i).toString()).innerText)){
@@ -438,7 +472,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) + i+1).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) + i+1).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) + i+1).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) + i+1).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +1+i).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -455,7 +492,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) - i-1).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) - i-1).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) - i-1).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) - i-1).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) - i-1).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) -1-(1*i)).toString()).innerText)){
@@ -464,7 +504,10 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) - i-1).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) - i-1).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) - i-1).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) - i-1).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) -1-(1*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -544,7 +587,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +11+(11*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) +11+(11*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) +11+(11*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) +11+(11*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +11+(11*i)).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) +11+(11*i)).toString()).innerText)){
@@ -553,7 +599,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +11+(11*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) +11+(11*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) +11+(11*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) +11+(11*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +11+(11*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -569,7 +618,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) -11-(11*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) -11-(11*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) -11-(11*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) -11-(11*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) -11-(11*i)).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) -11-(11*i)).toString()).innerText)){
@@ -578,7 +630,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) -11-(11*i)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) -11-(11*i)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) -11-(11*i)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) -11-(11*i)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) -11-(11*i)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -596,7 +651,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +9+(i*9)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) +9+(i*9)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) +9+(i*9)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) +9+(i*9)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +9+(i*9)).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) +9+(i*9)).toString()).innerText)){
@@ -605,7 +663,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +9+(i*9)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) +9+(i*9)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) +9+(i*9)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) +9+(i*9)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) +9+(i*9)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -622,7 +683,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) -9-(i*9)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) -9-(i*9)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) -9-(i*9)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) -9-(i*9)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) -9-(i*9)).toString()).style.backgroundColor = legalColor
             }
             else if(pieces[cl].includes(document.getElementById((Number(idto) -9-(i*9)).toString()).innerText)){
@@ -631,7 +695,10 @@ function GreenBishop(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) -9-(i*9)).toString());
                 child.setAttribute("class", "legal");
-                document.getElementById((Number(idto) -9-(i*9)).toString()).appendChild(child);
+                if (document.getElementById((Number(idto) -9-(i*9)).toString()).childElementCount === 0) {
+                    document.getElementById((Number(idto) -9-(i*9)).toString()).appendChild(child);
+                }
+                
                 // document.getElementById((Number(idto) -9-(i*9)).toString()).style.backgroundColor = legalColor
                 break;
             }
@@ -688,13 +755,19 @@ function GreenPawn(idto, color) {
         let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (idto - 10));
                 child.setAttribute("class", "legal");
-                document.getElementById(idto - 10).appendChild(child);
+                if (document.getElementById(idto - 10).childElementCount === 0) {
+                    document.getElementById(idto - 10).appendChild(child);
+                }
+                
         // document.getElementById(idto - 10).style.backgroundColor = legalColor;
         if (idto[0] == 7 && document.getElementById(idto - 20).innerText.length === 0) {
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (idto - 20));
                 child.setAttribute("class", "legal");
-                document.getElementById(idto - 20).appendChild(child);
+                if (document.getElementById(idto - 20).childElementCount === 0) {
+                    document.getElementById(idto - 20).appendChild(child);
+                }
+                
             // document.getElementById(idto - 20).style.backgroundColor = legalColor;
         }
     }else if(color === "white"){
@@ -705,13 +778,18 @@ function GreenPawn(idto, color) {
         let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) + 10));
                 child.setAttribute("class", "legal");
-                document.getElementById(Number(idto) + 10).appendChild(child);
+                if (document.getElementById(Number(idto) + 10).childElementCount === 0) {
+                    document.getElementById(Number(idto) + 10).appendChild(child);
+                }
+                
         // document.getElementById(Number(idto) + 10).style.backgroundColor = legalColor;
         if (idto[0] == 2 && document.getElementById(Number(idto) + 20).innerText.length === 0) {
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) + 20));
                 child.setAttribute("class", "legal");
-                document.getElementById(Number(idto) + 20).appendChild(child);
+                if (document.getElementById(Number(idto) + 20).childElementCount === 0) {
+                    document.getElementById(Number(idto) + 20).appendChild(child);
+                }
             // document.getElementById(Number(idto) + 20).style.backgroundColor = legalColor;
         }
     }
@@ -725,7 +803,10 @@ function GreenPawn(idto, color) {
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) - 11));
                 child.setAttribute("class", "legal");
-                document.getElementById(String(Number(idto) - 11)).appendChild(child);
+                if (document.getElementById(String(Number(idto) - 11)).childElementCount === 0) {
+                    document.getElementById(String(Number(idto) - 11)).appendChild(child);
+                }
+                
             // document.getElementById(String(Number(idto) - 11)).style.backgroundColor = legalColor
             selectedFigure = true;
         }
@@ -737,7 +818,10 @@ function GreenPawn(idto, color) {
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) - 9));
                 child.setAttribute("class", "legal");
-                document.getElementById(String(Number(idto) - 9)).appendChild(child);
+                if (document.getElementById(String(Number(idto) - 9)).childElementCount === 0) {
+                    document.getElementById(String(Number(idto) - 9)).appendChild(child);
+                }
+                
             // document.getElementById(String(Number(idto) - 9)).style.backgroundColor = legalColor
             selectedFigure = true;
         }
@@ -749,7 +833,10 @@ function GreenPawn(idto, color) {
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) + 11));
                 child.setAttribute("class", "legal");
-                document.getElementById(String(Number(idto) + 11)).appendChild(child);
+                if (document.getElementById(String(Number(idto) + 11)).childElementCount === 0) {
+                    document.getElementById(String(Number(idto) + 11)).appendChild(child);
+                }
+                
             // document.getElementById(String(Number(idto) + 11)).style.backgroundColor = legalColor
             selectedFigure = true;
         }
@@ -760,7 +847,10 @@ function GreenPawn(idto, color) {
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) + 9));
                 child.setAttribute("class", "legal");
-                document.getElementById(String(Number(idto) + 9)).appendChild(child);
+                if (document.getElementById(String(Number(idto) + 9)).childElementCount === 0) {
+                    document.getElementById(String(Number(idto) + 9)).appendChild(child);
+                }
+                
             // document.getElementById(String(Number(idto) + 9)).style.backgroundColor = legalColor
             selectedFigure = true;
         }
@@ -817,7 +907,10 @@ function GreenKing(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + squares[i].id);
                 child.setAttribute("class", "legal");
-                squares[i].appendChild(child);
+                if (squares[i].childElementCount === 0) {
+                    squares[i].appendChild(child);
+                }
+                
                 
                 // squares[i].style.backgroundColor = legalColor
             }
@@ -825,7 +918,10 @@ function GreenKing(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + squares[i].id);
                 child.setAttribute("class", "legal");
-                squares[i].appendChild(child);
+                if (squares[i].childElementCount === 0) {
+                    squares[i].appendChild(child);
+                }
+               
                 
                 // squares[i].style.backgroundColor = legalColor
             }
@@ -833,19 +929,29 @@ function GreenKing(idto, color) {
                 child.setAttribute("class", "castle");
                 
             if (Wking === false && h1Rook === false && document.getElementById("16").innerText.length === 0 && document.getElementById("17").innerText.length === 0 && color === "black" && document.getElementById("17").childElementCount === 0) {
-                document.getElementById("17").appendChild(child)
+                if (document.getElementById("17").childElementCount === 0) {
+                    document.getElementById("17").appendChild(child);
+                }
                 child.setAttribute("id", "c" + document.getElementById("17").id)
             }
             if (Wking === false && a1Rook === false && document.getElementById("12").innerText.length === 0 && document.getElementById("13").innerText.length === 0 &&document.getElementById("14").innerText.length === 0 && color === "black" && document.getElementById("13").childElementCount === 0) {
-                document.getElementById("13").appendChild(child)
+                if (document.getElementById("13").childElementCount === 0) {
+                    document.getElementById("13").appendChild(child);
+                }
                 child.setAttribute("id", "c" + document.getElementById("13").id)
             }
             if (Bking === false && h8Rook === false && document.getElementById("86").innerText.length === 0 && document.getElementById("87").innerText.length === 0 && color === "white" && document.getElementById("87").childElementCount === 0) {
+                if (document.getElementById("87").childElementCount === 0) {
+                    document.getElementById("87").appendChild(child);
+                }
                 document.getElementById("87").appendChild(child)
                 child.setAttribute("id", "c" + document.getElementById("87").id)
             }
             if (Bking === false && a8Rook === false && document.getElementById("82").innerText.length === 0 && document.getElementById("83").innerText.length === 0 &&document.getElementById("84").innerText.length === 0 && color === "white" && document.getElementById("83").childElementCount === 0) {
-                document.getElementById("83").appendChild(child)
+                if (document.getElementById("83").childElementCount === 0) {
+                    document.getElementById("83").appendChild(child);
+                }
+                
                 child.setAttribute("id", "c" + document.getElementById("83").id)
             }
         }
@@ -878,7 +984,9 @@ function GreenKnight(idto, color) {
                     let child = document.createElement('div');
                 child.setAttribute("id", 'd' + element.id);
                 child.setAttribute("class", "legal");
-                element.appendChild(child);
+                if (element.childElementCount === 0) {
+                    element.appendChild(child);
+                }
                     // element.style.backgroundColor = legalColor
                 }              
                 break;
