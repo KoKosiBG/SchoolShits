@@ -27,7 +27,7 @@ document.getElementById("startButton").addEventListener('click', () =>{
 
 })
 
-function Color(){
+function Color(from){
     let boxes = document.getElementsByClassName("box")
     boxes = Array.from(boxes);
     // setTimeout(() => {
@@ -55,8 +55,11 @@ function Color(){
             if (element.childElementCount > 0) {
                 
                     let id = element.firstElementChild.id
-                    
-                element.removeChild(document.getElementById(id))
+                    console.log(from);
+                    if (from != "check") {
+                        element.removeChild(document.getElementById(id))
+                    }
+                
                 
                 
                 
@@ -132,6 +135,7 @@ let overID = ""
 Array.from(document.getElementsByClassName("box")).forEach(element => {
     element.addEventListener('click', () =>{
         Click(element)    
+        
     })
     element.addEventListener("dragenter",()=>{
         
@@ -373,13 +377,30 @@ function IsInCheck() {
     })
     Array.from(squares).forEach(element =>{
         if (element.innerText === pieces[0][4] && element.childElementCount > 0 && element.firstElementChild.className === "legal") {
+            Color("check")
             return 0
+
         }
         else if (element.innerText === pieces[1][4] && element.childElementCount > 0 && element.firstElementChild.className === "legal") {
+            Color("check")
             return 1
         }
     })
+    Color("check")
     return false
+}
+function SwapPieces(element1, element2,color) {
+    let slap = element1.innerText
+    element1.innerText = element2.innerText
+    element2.innerText = slap
+    if (IsInCheck() === color) {
+        return false
+    }
+    let slap2 = element2.innerText
+    element2.innerText = element1.innerText
+    element1.innerText = slap2
+    return true
+    
 }
 function GreenRook(idto, color) {
     
@@ -398,7 +419,7 @@ function GreenRook(idto, color) {
                 let child = document.createElement('div');
                 child.setAttribute("id", 'd' + (Number(idto) +10+(10*i)).toString());
                 child.setAttribute("class", "legal");
-                if (document.getElementById((Number(idto) +10+(10*i)).toString()).childElementCount === 0) {
+                if (document.getElementById((Number(idto) +10+(10*i)).toString()).childElementCount === 0 && SwapPieces(document.getElementById(idto),document.getElementById((Number(idto) +10+(10*i)).toString()),cl) === true) {
                     document.getElementById((Number(idto) +10+(10*i)).toString()).appendChild(child);
                 }
                 
