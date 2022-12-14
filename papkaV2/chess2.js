@@ -255,65 +255,66 @@ function Click(element) {
 function ColorLegal(element,from) {
   switch (element.innerText) {
     case pieces[0][0]:
-      if (hod % 2 === 1) {
+      if (hod % 2 === 1 || from === "check") {
+        
         GreenRook(element, "white",from);
       }
       break;
     case pieces[1][0]:
-      if (hod % 2 === 0) {
+      if (hod % 2 === 0 || from === "check") {
         GreenRook(element, "black",from);
       }
       break;
     case pieces[0][2]:
-      if (hod % 2 === 1) {
+      if (hod % 2 === 1 || from === "check") {
         GreenBishop(element, "white",from);
       }
       break;
     case pieces[1][2]:
-      if (hod % 2 === 0) {
+      if (hod % 2 === 0 || from === "check") {
         GreenBishop(element, "black",from);
       }
       break;
     case pieces[0][5]:
-      if (hod % 2 === 1) {
+      if (hod % 2 === 1 || from === "check") {
         GreenPawn(element, "white",from);
       }
       break;
     case pieces[1][5]:
-      if (hod % 2 === 0) {
+      if (hod % 2 === 0 || from === "check") {
         GreenPawn(element, "black",from);
       }
       break;
     case pieces[0][3]:
-      if (hod % 2 === 1) {
+      if (hod % 2 === 1 || from === "check") {
         GreenBishop(element, "white",from);
         GreenRook(element, "white",from);
       }
 
       break;
     case pieces[1][3]:
-      if (hod % 2 === 0) {
+      if (hod % 2 === 0 || from === "check") {
         GreenBishop(element, "black",from);
         GreenRook(element, "black",from);
       }
       break;
     case pieces[0][1]:
-      if (hod % 2 === 1) {
+      if (hod % 2 === 1 || from === "check") {
         GreenKnight(element, "white",from);
       }
       break;
     case pieces[1][1]:
-      if (hod % 2 === 0) {
+      if (hod % 2 === 0 || from === "check") {
         GreenKnight(element, "black",from);
       }
       break;
     case pieces[0][4]:
-      if (hod % 2 === 1) {
+      if (hod % 2 === 1 || from === "check") {
         GreenKing(element, "white",from);
       }
       break;
     case pieces[1][4]:
-      if (hod % 2 === 0) {
+      if (hod % 2 === 0 || from === "check") {
         GreenKing(element, "black",from);
       }
       break;
@@ -352,7 +353,11 @@ function IsInCheck(color) {
   })
 
   squares.forEach(element =>{
-    if (element.innerText === pieces[cl][4] && element.classList.contains('check')) {
+    if (element.innerText === pieces[color][4]) {
+      console.log(element.classList);
+      console.log(element.classList.contains('check'))
+    }
+    if ((element.innerText === pieces[cl][4] || element.innerText === pieces[color][4]) && element.classList.contains('check')) {
       CheckRemove()
       return true
     }
@@ -405,7 +410,9 @@ function Rook(direction, element1, cl,from) {
       } else {
         if (element2.childElementCount === 0) {
           if (from === "check") {
+            console.log(element2.innerText);
             element2.classList.add('check')
+            console.log(element2.classList);
           }
           else{
             if (SwapPieces(element1,element2,cl) === true) {
@@ -441,6 +448,10 @@ function GreenRook(element1, color,from) {
   Rook(-10, element1, cl,from);
   Rook(1, element1, cl,from);
   Rook(-1, element1, cl,from);
+
+  if (from !== "check") {
+    console.log(IsInCheck(cl));
+  }
 }
 
 // BISHOP BISHOP BISHOP
@@ -459,7 +470,6 @@ function Bishop(direction, element1, cl) {
         break;
       } else {
         if (element2.childElementCount === 0) {
-          console.log(element2.id);
           element2.appendChild(AddDiv(element2.id))
         
         }
