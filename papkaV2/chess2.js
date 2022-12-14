@@ -252,69 +252,69 @@ function Click(element) {
 
 // ColorLegal function //
 
-function ColorLegal(element) {
+function ColorLegal(element,from) {
   switch (element.innerText) {
     case pieces[0][0]:
       if (hod % 2 === 1) {
-        GreenRook(element, "white");
+        GreenRook(element, "white",from);
       }
       break;
     case pieces[1][0]:
       if (hod % 2 === 0) {
-        GreenRook(element, "black");
+        GreenRook(element, "black",from);
       }
       break;
     case pieces[0][2]:
       if (hod % 2 === 1) {
-        GreenBishop(element, "white");
+        GreenBishop(element, "white",from);
       }
       break;
     case pieces[1][2]:
       if (hod % 2 === 0) {
-        GreenBishop(element, "black");
+        GreenBishop(element, "black",from);
       }
       break;
     case pieces[0][5]:
       if (hod % 2 === 1) {
-        GreenPawn(element, "white");
+        GreenPawn(element, "white",from);
       }
       break;
     case pieces[1][5]:
       if (hod % 2 === 0) {
-        GreenPawn(element, "black");
+        GreenPawn(element, "black",from);
       }
       break;
     case pieces[0][3]:
       if (hod % 2 === 1) {
-        GreenBishop(element, "white");
-        GreenRook(element, "white");
+        GreenBishop(element, "white",from);
+        GreenRook(element, "white",from);
       }
 
       break;
     case pieces[1][3]:
       if (hod % 2 === 0) {
-        GreenBishop(element, "black");
-        GreenRook(element, "black");
+        GreenBishop(element, "black",from);
+        GreenRook(element, "black",from);
       }
       break;
     case pieces[0][1]:
       if (hod % 2 === 1) {
-        GreenKnight(element, "white");
+        GreenKnight(element, "white",from);
       }
       break;
     case pieces[1][1]:
       if (hod % 2 === 0) {
-        GreenKnight(element, "black");
+        GreenKnight(element, "black",from);
       }
       break;
     case pieces[0][4]:
       if (hod % 2 === 1) {
-        GreenKing(element, "white");
+        GreenKing(element, "white",from);
       }
       break;
     case pieces[1][4]:
       if (hod % 2 === 0) {
-        GreenKing(element, "black");
+        GreenKing(element, "black",from);
       }
       break;
 
@@ -330,9 +330,58 @@ function AddDiv(id) {
   child.setAttribute("class", "legal");
   return child;
 }
+// This function remove the check class //
+function CheckRemove() {
+  squares.forEach(element => {
+    if (element.classList.contains('check')) {
+      element.classList.remove('check')
+    }
+  })
+}
+
+// This function check if somebody is in check //
+function IsInCheck(color) {
+  let cl = 1
+  if (color === 1) {
+    cl = 0
+  }
+  squares.forEach(element =>{
+    if (element.innerText === pieces[0][0] || element.innerText === pieces[1][0]) {
+      ColorLegal(element, "check")
+    }
+  })
+
+  squares.forEach(element =>{
+    if (element.innerText === pieces[cl][4] && element.classList.contains('check')) {
+      CheckRemove()
+      return true
+    }
+  })
+  CheckRemove()
+  return false
+}
+// Slaps pieces and return if is in check after that //
+
+function SwapPieces(element1, element2,color) {
+  let slap = element1.innerText
+  element1.innerText = element2.innerText
+  element2.innerText = slap
+  if (IsInCheck(color) === true) {
+    let slap2 = element2.innerText
+    element2.innerText = element1.innerText
+    element1.innerText = slap2
+      return false
+  }
+  let slap2 = element2.innerText
+  element2.innerText = element1.innerText
+  element1.innerText = slap2
+  return true
+  
+}
+
 // ROOK ROOK ROOK //
 
-function Rook(direction, element1, cl) {
+function Rook(direction, element1, cl,from) {
   for (let i = 0; i < 8; i++) {
     let element2 = document.getElementById(
       (Number(element1.id) + direction + direction * i).toString()
@@ -340,17 +389,32 @@ function Rook(direction, element1, cl) {
     if (element2 !== null) {
       if (element2.innerText.length === 0) {
         if (element2.childElementCount === 0) {
-          element2.appendChild(
-            AddDiv((Number(element1.id) + direction + direction * i).toString())
-          );
+          if (from === "check") {
+            element2.classList.add('check')
+          }
+          else{
+            if (SwapPieces(element1,element2,cl) === true) {
+              element2.appendChild(
+                AddDiv((Number(element1.id) + direction + direction * i).toString())
+              );
+            }
+          }
         }
       } else if (pieces[cl].includes(element2.innerText)) {
         break;
       } else {
         if (element2.childElementCount === 0) {
-          element2.appendChild(
-            AddDiv((Number(element1.id) + direction + direction * i).toString())
-          );
+          if (from === "check") {
+            element2.classList.add('check')
+          }
+          else{
+            if (SwapPieces(element1,element2,cl) === true) {
+              element2.appendChild(
+                AddDiv((Number(element1.id) + direction + direction * i).toString())
+              );
+            }
+          }
+          
         }
         break;
       }
@@ -360,18 +424,23 @@ function Rook(direction, element1, cl) {
   }
 }
 
-function GreenRook(element1, color) {
+function GreenRook(element1, color,from) {
   let cl = 0;
   if (color === "black") {
     cl = 1;
   }
-  selectedFigure = true;
+  if (from !== "check") {
+    selectedFigure = true;
   element1.style.backgroundColor = "pink";
+  console.log(IsInCheck(cl));
+  }
+  
 
-  Rook(10, element1, cl);
-  Rook(-10, element1, cl);
-  Rook(1, element1, cl);
-  Rook(-1, element1, cl);
+
+  Rook(10, element1, cl,from);
+  Rook(-10, element1, cl,from);
+  Rook(1, element1, cl,from);
+  Rook(-1, element1, cl,from);
 }
 
 // BISHOP BISHOP BISHOP
@@ -384,15 +453,17 @@ function Bishop(direction, element1, cl) {
     if (element2 !== null) {
       if (element2.innerText.length === 0) {
         if (element2.childElementCount === 0) {
-          element2.appendChild(AddDiv(element2.id));
+          element2.appendChild(AddDiv(element2.id))
         }
-      } else if (pieces[cl].includes(element1.innerText)) {
+      } else if (pieces[cl].includes(element2.innerText)) {
         break;
       } else {
         if (element2.childElementCount === 0) {
-          element2.appendChild(AddDiv(element2.id));
+          console.log(element2.id);
+          element2.appendChild(AddDiv(element2.id))
+        
         }
-        break;
+        break
       }
     } else {
       break;
@@ -535,7 +606,6 @@ function GreenKing(king, color) {
           squares[i].appendChild(AddDiv(ID));
         }
 
-        // squares[i].style.backgroundColor = legalColor
       }
       let child = document.createElement("div");
       child.setAttribute("class", "castle");
