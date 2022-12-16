@@ -342,28 +342,27 @@ function CheckRemove() {
 
 // This function check if somebody is in check //
 function IsInCheck(color) {
-  let cl = 1
-  if (color === 1) {
-    cl = 0
-  }
+  let returner = 0
   squares.forEach(element =>{
-    if (element.innerText === pieces[0][0] || element.innerText === pieces[1][0]) {
+    if (element.innerText === pieces[0][0] || element.innerText === pieces[1][0] || element.innerText === pieces[0][2] || element.innerText === pieces[1][2]) {
       ColorLegal(element, "check")
     }
   })
 
   squares.forEach(element =>{
-    if (element.innerText === pieces[color][4]) {
-      console.log(element.classList);
-      console.log(element.classList.contains('check'))
-    }
-    if ((element.innerText === pieces[cl][4] || element.innerText === pieces[color][4]) && element.classList.contains('check')) {
+  
+    if (element.innerText === pieces[color][4] && element.classList.contains('check')) {
       CheckRemove()
-      return true
+      returner = 1
     }
   })
   CheckRemove()
-  return false
+  if (returner === 1) {
+    return true
+  }
+  else{
+    return false
+  }
 }
 // Slaps pieces and return if is in check after that //
 
@@ -456,7 +455,11 @@ function GreenRook(element1, color,from) {
 
 // BISHOP BISHOP BISHOP
 
-function Bishop(direction, element1, cl) {
+function Bishop(direction, element1, cl,from) {
+  let color = 0
+  if (cl === 0) {
+    color = 1
+  }
   for (let i = 0; i < 8; i++) {
     let element2 = document.getElementById(
       (Number(idto) + direction + direction * i).toString()
@@ -464,13 +467,27 @@ function Bishop(direction, element1, cl) {
     if (element2 !== null) {
       if (element2.innerText.length === 0) {
         if (element2.childElementCount === 0) {
-          element2.appendChild(AddDiv(element2.id))
+          // if (from === "check") {
+          //   element2.classList.add('check')
+          // }
+          // else{
+          //   if (SwapPieces(element1,element2,color) === true) {
+              element2.appendChild(AddDiv(element2.id))
+        //     }
+        // }
         }
       } else if (pieces[cl].includes(element2.innerText)) {
         break;
       } else {
         if (element2.childElementCount === 0) {
-          element2.appendChild(AddDiv(element2.id))
+          // if (from === "check") {
+          //   element2.classList.add('check')
+          // }
+          // else{
+          //   if (SwapPieces(element1,element2,color) === true) {
+              element2.appendChild(AddDiv(element2.id))
+        //     }
+        // }
         
         }
         break
@@ -481,21 +498,24 @@ function Bishop(direction, element1, cl) {
   }
 }
 
-function GreenBishop(element1, color) {
+function GreenBishop(element1, color,from) {
   idto = element1.id;
   let diffrence = idto[0] - idto[1];
   let sum = Number(idto[0]) + Number(idto[1]);
-  selectedFigure = true;
   let cl = 0;
   if (color === "black") {
     cl = 1;
   }
-  element1.style.backgroundColor = "pink";
+  if (from !== "check") {
+    element1.style.backgroundColor = "pink";
+  selectedFigure = true;
+  }
+  
 
-  Bishop(11, element1, cl);
-  Bishop(-11, element1, cl);
-  Bishop(9, element1, cl);
-  Bishop(-9, element1, cl);
+  Bishop(11, element1, cl,from);
+  Bishop(-11, element1, cl,from);
+  Bishop(9, element1, cl,from);
+  Bishop(-9, element1, cl,from);
 }
 
 // PAWN PAWN PAWN //
