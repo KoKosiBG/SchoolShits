@@ -456,38 +456,39 @@ function GreenRook(element1, color,from) {
 // BISHOP BISHOP BISHOP
 
 function Bishop(direction, element1, cl,from) {
-  let color = 0
-  if (cl === 0) {
-    color = 1
-  }
+ 
   for (let i = 0; i < 8; i++) {
     let element2 = document.getElementById(
-      (Number(idto) + direction + direction * i).toString()
+      (Number(element1.id) + direction + direction * i).toString()
     );
+    
     if (element2 !== null) {
+      console.log(element2.id);
       if (element2.innerText.length === 0) {
         if (element2.childElementCount === 0) {
-          // if (from === "check") {
-          //   element2.classList.add('check')
-          // }
-          // else{
-          //   if (SwapPieces(element1,element2,color) === true) {
-              element2.appendChild(AddDiv(element2.id))
-        //     }
-        // }
+          if (from === "check") {
+            element2.classList.add('check')
+          }
+          else{
+              if (SwapPieces(element1,element2,cl) === true) {
+                element2.appendChild(AddDiv(element2.id))
+              }
+            
+            
+        }
         }
       } else if (pieces[cl].includes(element2.innerText)) {
         break;
       } else {
         if (element2.childElementCount === 0) {
-          // if (from === "check") {
-          //   element2.classList.add('check')
-          // }
-          // else{
-          //   if (SwapPieces(element1,element2,color) === true) {
+          if (from === "check") {
+            element2.classList.add('check')
+          }
+          else{
+            if (SwapPieces(element1,element2,cl) === true) {
               element2.appendChild(AddDiv(element2.id))
-        //     }
-        // }
+            }
+        }
         
         }
         break
