@@ -145,11 +145,49 @@ function DragStartFunction() {
                 
             }, 1);
 }
+// Check if the game ended //
+function GameOver() {
+  let color = hod % 2
+  if (HasMoves() === false) {
+    if (IsInCheck(color) === true) {
+      alert("Check mate")
+    }
+    else{
+      alert("Stale mate")
+    }
+  }
+}
+// Checks if legal moves are available //
+function HasMoves() {
+  let color = 0
+  if (hod % 2 === 0) {
+    color = 1
+  }
+  let returner = 0
+  squares.forEach(element =>{
+    if (pieces[color].includes(element.innerText)) {
+      console.log("vlizam");
+      ColorLegal(element)
+    }
+  })
+  squares.forEach(element =>{
+    if (element.childElementCount > 0) {
+      returner = 1
+    }
+  })
+  if (returner === 1) {
+    return true
+  }
+  else{
+    return false
+  }
+}
 
 // The Click function
 
 function Click(element) {
   IsCastlingPosible();
+  GameOver()
 
   if (element.childElementCount > 0) {
     if (element.firstElementChild.className === "legal") {
@@ -344,9 +382,9 @@ function CheckRemove() {
 function IsInCheck(color) {
   let returner = 0
   squares.forEach(element =>{
-    if (element.innerText === pieces[0][0] || element.innerText === pieces[1][0] || element.innerText === pieces[0][2] || element.innerText === pieces[1][2]|| element.innerText === pieces[0][5] || element.innerText === pieces[1][5]) {
+   
       ColorLegal(element, "check")
-    }
+    
   })
 
   squares.forEach(element =>{
@@ -367,8 +405,10 @@ function IsInCheck(color) {
 // Slaps pieces and return if is in check after that //
 
 function SwapPieces(element1, element2,color) {
+  console.log(element2);
   let slap = element1.innerText
   let slapTwo = element2.innerText
+  
   element1.innerText = ""
   element2.innerText = slap
   if (IsInCheck(color) === true) {
@@ -522,6 +562,7 @@ function GreenBishop(element1, color,from) {
 
 function GreenPawn(element, color,from) {
   if (from !== "check") {
+    
     element.style.backgroundColor = "pink";
     selectedFigure = true;
   }
@@ -570,7 +611,7 @@ function GreenPawn(element, color,from) {
         
       }
     }
-  } else if (color === "white") {
+  } else if (color === "white" && from !== "check") {
     Color();
     selectedFigure = false;
   }
@@ -581,7 +622,7 @@ function GreenPawn(element, color,from) {
       }
       else{
         if (SwapPieces(element,element3,cl) === true) {
-          console.log(element3);
+          
           element3.appendChild(AddDiv(element3.id));
         }
       }
@@ -595,19 +636,22 @@ function GreenPawn(element, color,from) {
         }
         else{
           if (SwapPieces(element,element4,cl) === true) {
-            console.log(element4);
+        
             element4.appendChild(AddDiv(element4.id));
           }
         }
       }
     }
-  } else if (color === "black") {
+  } else if (color === "black" && from  !== "check") {
     Color();
     selectedFigure = false;
   }
   if (element5 !== null) {
     if (color === "white" && pieces[1].includes(element5.innerText)) {
-      element.style.backgroundColor = "pink";
+     if (from !== "check") {
+        element.style.backgroundColor = "pink";
+      } 
+      
       if (element5.childElementCount === 0) {
         if (from === "check") {
           element5.classList.add('check')
@@ -624,7 +668,9 @@ function GreenPawn(element, color,from) {
 
   if (element6 !== null) {
     if (color === "white" && pieces[1].includes(element6.innerText)) {
-      element.style.backgroundColor = "pink";
+      if (from !== "check") {
+        element.style.backgroundColor = "pink";
+      } 
       if (element6.childElementCount === 0) {
         if (from === "check") {
           element6.classList.add('check')
@@ -641,7 +687,9 @@ function GreenPawn(element, color,from) {
 
   if (element7 !== null) {
     if (color === "black" && pieces[0].includes(element7.innerText)) {
-      element.style.backgroundColor = "pink";
+      if (from !== "check") {
+        element.style.backgroundColor = "pink";
+      } 
       if (element7.childElementCount === 0) {
         if (from === "check") {
           element7.classList.add('check')
@@ -657,7 +705,9 @@ function GreenPawn(element, color,from) {
   }
   if (element8 !== null) {
     if (color === "black" && pieces[0].includes(element8.innerText)) {
-      element.style.backgroundColor = "pink";
+      if (from !== "check") {
+        element.style.backgroundColor = "pink";
+      } 
       if (element8.childElementCount === 0) {
         if (from === "check") {
           element8.classList.add('check')
@@ -675,8 +725,16 @@ function GreenPawn(element, color,from) {
 
 // KING KING KING //
 
-function GreenKing(king, color) {
-  king.style.backgroundColor = "pink";
+function GreenKing(king, color,from) {
+  if (from !== "check") {
+    
+    king.style.backgroundColor = "pink";
+  }
+  let cl = 0
+  if (color === "black") {
+    cl = 1
+  }
+//  console.log(king);
   for (let i = 0; i < squares.length; i++) {
     let ID = Number(squares[i].id);
     if (
@@ -689,24 +747,43 @@ function GreenKing(king, color) {
       king.id == ID - 9 ||
       king.id == ID - 11
     ) {
-      selectedFigure = true;
+      if (from !== "check") {
+        selectedFigure = true;
+      }
+     
       if (
         (color === "white" && pieces[1].includes(squares[i].innerText)) ||
         squares[i].innerText.length === 0
       ) {
         if (squares[i].childElementCount === 0) {
-          squares[i].appendChild(AddDiv(ID));
+          if (from === "check") {
+            squares[i].classList.add('check')
+          }
+          else{
+            if (SwapPieces(king,squares[i],cl) === true) {
+              squares[i].appendChild(AddDiv(squares[i].id));
+            }
+          }
+  
         }
       } else if (
         (color === "black" && pieces[0].includes(squares[i].innerText)) ||
         squares[i].innerText.length === 0
       ) {
         if (squares[i].childElementCount === 0) {
-          squares[i].appendChild(AddDiv(ID));
+          if (from === "check") {
+            squares[i].classList.add('check')
+          }
+          else{
+            if (SwapPieces(king,squares[i],cl) === true) {
+              squares[i].appendChild(AddDiv(squares[i].id));
+            }
+          }
         }
 
       }
-      let child = document.createElement("div");
+      if (from !== "check") {
+        let child = document.createElement("div");
       child.setAttribute("class", "castle");
 
       if (
@@ -765,20 +842,25 @@ function GreenKing(king, color) {
 
         child.setAttribute("id", "c" + document.getElementById("83").id);
       }
+      }
+      
     }
   }
 }
 
-function GreenKnight(element, color) {
-  element.style.backgroundColor = "pink";
-  idto = Number(element.id);
-  selectedFigure = true;
+function GreenKnight(element, color,from) {
+  if (from !== "check") {
+    element.style.backgroundColor = "pink";
+    selectedFigure = true;
+  }
+  
+  let idto = Number(element.id);
   let colorInt = 0;
   if (color === "black") {
     colorInt = 1;
   }
-  Array.from(squares).forEach((element) => {
-    let elmId = Number(element.id);
+  Array.from(squares).forEach((element2) => {
+    let elmId = Number(element2.id);
 
     switch (idto) {
       case elmId + 21:
@@ -789,9 +871,17 @@ function GreenKnight(element, color) {
       case elmId - 19:
       case elmId - 12:
       case elmId - 8:
-        if (pieces[colorInt].includes(element.innerText) !== true) {
+        if (pieces[colorInt].includes(element2.innerText) !== true) {
           if (element.childElementCount === 0) {
-            element.appendChild(AddDiv(element.id));
+            if (from === "check") {
+              element2.classList.add('check')
+            }
+            else{
+              if (SwapPieces(element,element2,colorInt) === true) {
+                element2.appendChild(AddDiv(element2.id));
+              }
+            }
+            
           }
         }
         break;
