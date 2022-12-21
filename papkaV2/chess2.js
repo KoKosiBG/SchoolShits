@@ -344,7 +344,7 @@ function CheckRemove() {
 function IsInCheck(color) {
   let returner = 0
   squares.forEach(element =>{
-    if (element.innerText === pieces[0][0] || element.innerText === pieces[1][0] || element.innerText === pieces[0][2] || element.innerText === pieces[1][2]) {
+    if (element.innerText === pieces[0][0] || element.innerText === pieces[1][0] || element.innerText === pieces[0][2] || element.innerText === pieces[1][2]|| element.innerText === pieces[0][5] || element.innerText === pieces[1][5]) {
       ColorLegal(element, "check")
     }
   })
@@ -368,17 +368,16 @@ function IsInCheck(color) {
 
 function SwapPieces(element1, element2,color) {
   let slap = element1.innerText
-  element1.innerText = element2.innerText
+  let slapTwo = element2.innerText
+  element1.innerText = ""
   element2.innerText = slap
   if (IsInCheck(color) === true) {
-    let slap2 = element2.innerText
-    element2.innerText = element1.innerText
-    element1.innerText = slap2
+    element2.innerText = slapTwo
+    element1.innerText = slap
       return false
   }
-  let slap2 = element2.innerText
-  element2.innerText = element1.innerText
-  element1.innerText = slap2
+  element2.innerText = slapTwo
+  element1.innerText = slap
   return true
   
 }
@@ -399,7 +398,7 @@ function Rook(direction, element1, cl,from) {
           else{
             if (SwapPieces(element1,element2,cl) === true) {
               element2.appendChild(
-                AddDiv((Number(element1.id) + direction + direction * i).toString())
+                AddDiv(element2.id)
               );
             }
           }
@@ -409,14 +408,14 @@ function Rook(direction, element1, cl,from) {
       } else {
         if (element2.childElementCount === 0) {
           if (from === "check") {
-            console.log(element2.innerText);
+            
             element2.classList.add('check')
-            console.log(element2.classList);
+           
           }
           else{
             if (SwapPieces(element1,element2,cl) === true) {
               element2.appendChild(
-                AddDiv((Number(element1.id) + direction + direction * i).toString())
+                AddDiv(element2.id)
               );
             }
           }
@@ -438,7 +437,7 @@ function GreenRook(element1, color,from) {
   if (from !== "check") {
     selectedFigure = true;
   element1.style.backgroundColor = "pink";
-  console.log(IsInCheck(cl));
+
   }
   
 
@@ -449,7 +448,7 @@ function GreenRook(element1, color,from) {
   Rook(-1, element1, cl,from);
 
   if (from !== "check") {
-    console.log(IsInCheck(cl));
+
   }
 }
 
@@ -463,7 +462,7 @@ function Bishop(direction, element1, cl,from) {
     );
     
     if (element2 !== null) {
-      console.log(element2.id);
+   
       if (element2.innerText.length === 0) {
         if (element2.childElementCount === 0) {
           if (from === "check") {
@@ -521,10 +520,17 @@ function GreenBishop(element1, color,from) {
 
 // PAWN PAWN PAWN //
 
-function GreenPawn(element, color) {
-  element.style.backgroundColor = "pink";
-  selectedFigure = true;
-  idto = element.id;
+function GreenPawn(element, color,from) {
+  if (from !== "check") {
+    element.style.backgroundColor = "pink";
+    selectedFigure = true;
+  }
+  let cl = 0
+  if (color === "black") {
+    cl = 1
+  }
+  
+ let idto = element.id;
 
   let element1 = document.getElementById(idto - 10);
   let element2 = document.getElementById(idto - 20);
@@ -540,11 +546,28 @@ function GreenPawn(element, color) {
 
   if (color === "white" && element1.innerText.length === 0) {
     if (element1.childElementCount === 0) {
-      element1.appendChild(AddDiv(element1.id));
+      if (from === "check") {
+        element1.classList.add('check')
+      }
+      else{
+        if (SwapPieces(element,element1,cl) === true) {
+          
+          element1.appendChild(AddDiv(element1.id))
+        }
+      }
     }
     if (idto[0] == 7 && element2.innerText.length === 0) {
       if (element2.childElementCount === 0) {
-        element2.appendChild(AddDiv(element2.id));
+        if (from === "check") {
+          element2.classList.add('check')
+        }
+        else{
+          if (SwapPieces(element,element2,cl) === true) {
+           
+            element2.appendChild(AddDiv(element2.id));
+          }
+        }
+        
       }
     }
   } else if (color === "white") {
@@ -553,12 +576,29 @@ function GreenPawn(element, color) {
   }
   if (color === "black" && element3.innerText.length === 0) {
     if (element3.childElementCount === 0) {
-      element3.appendChild(AddDiv(element3.id));
+      if (from === "check") {
+        element3.classList.add('check')
+      }
+      else{
+        if (SwapPieces(element,element3,cl) === true) {
+          console.log(element3);
+          element3.appendChild(AddDiv(element3.id));
+        }
+      }
     }
 
     if (idto[0] == 2 && element4.innerText.length === 0) {
       if (element4.childElementCount === 0) {
-        element4.appendChild(AddDiv(element4.id));
+        if (from === "check") {
+          
+          element4.classList.add('check')
+        }
+        else{
+          if (SwapPieces(element,element4,cl) === true) {
+            console.log(element4);
+            element4.appendChild(AddDiv(element4.id));
+          }
+        }
       }
     }
   } else if (color === "black") {
@@ -569,7 +609,14 @@ function GreenPawn(element, color) {
     if (color === "white" && pieces[1].includes(element5.innerText)) {
       element.style.backgroundColor = "pink";
       if (element5.childElementCount === 0) {
-        element5.appendChild(AddDiv(element5.id));
+        if (from === "check") {
+          element5.classList.add('check')
+        }
+        else{
+          if (SwapPieces(element,element5,cl) === true) {
+            element5.appendChild(AddDiv(element5.id));
+          }
+        }
       }
       selectedFigure = true;
     }
@@ -579,7 +626,14 @@ function GreenPawn(element, color) {
     if (color === "white" && pieces[1].includes(element6.innerText)) {
       element.style.backgroundColor = "pink";
       if (element6.childElementCount === 0) {
-        element6.appendChild(AddDiv(element6.id));
+        if (from === "check") {
+          element6.classList.add('check')
+        }
+        else{
+          if (SwapPieces(element,element6,cl) === true) {
+            element6.appendChild(AddDiv(element6.id));
+          }
+        }
       }
       selectedFigure = true;
     }
@@ -589,7 +643,14 @@ function GreenPawn(element, color) {
     if (color === "black" && pieces[0].includes(element7.innerText)) {
       element.style.backgroundColor = "pink";
       if (element7.childElementCount === 0) {
-        element7.appendChild(AddDiv(element7.id));
+        if (from === "check") {
+          element7.classList.add('check')
+        }
+        else{
+          if (SwapPieces(element,element7,cl) === true) {
+            element7.appendChild(AddDiv(element7.id));
+          }
+        }
       }
       selectedFigure = true;
     }
@@ -598,7 +659,14 @@ function GreenPawn(element, color) {
     if (color === "black" && pieces[0].includes(element8.innerText)) {
       element.style.backgroundColor = "pink";
       if (element8.childElementCount === 0) {
-        element8.appendChild(AddDiv(element8.id));
+        if (from === "check") {
+          element8.classList.add('check')
+        }
+        else{
+          if (SwapPieces(element,element8,cl) === true) {
+            element8.appendChild(AddDiv(element8.id));
+          }
+        }
       }
       selectedFigure = true;
     }
