@@ -1,0 +1,154 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:45px;
+    background-color: #5b9bd1;
+    font-family: "Open Sans",sans-serif;
+    color:white;
+}
+.container{
+    background-color: #7cabca;
+    width: 400px;
+    height: 409px;
+    padding: 30px;
+    position: relative;
+    top:57px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+.vhod{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    font-weight: bold;
+    background: #7cabca;
+    font-size: 18px;
+    line-height: 20px;
+    color: #edf4f8;
+}
+.register{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    background: #5b9bd1;
+    font-size: 18px;
+    line-height: 20px;
+    color: #edf4f8;
+}
+.menu{
+    height: 50px;
+    width: 100%;
+    display: flex;
+}
+.main{
+    height: 359px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:8px;
+    position: relative;
+}
+.ZZ{
+    display:flex;
+    justify-content: space-around;
+    width: 100%;
+    gap:80px;
+    
+}
+button{
+    width: 85%;
+    height: 40px;
+    background-color: #45B6AF;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 3px;
+}
+input[type=text],[type=password]{
+    width: 76%;
+    height: 40px;
+    margin-top: 10px;
+    padding-left: 30px;
+    background-color: rgb(231, 236, 241);
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+input[type=text],[type=password]:active{
+    border: none;
+    outline: none;
+}
+.zapomni{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.title{
+    position: relative;
+    top:57px;
+}
+.line1{
+    height: 1px;
+    width: 35%;
+    background-color: white;
+}
+.line2{
+    height: 1px;
+    width: 35%;
+    background-color: white;
+}
+.Or{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:15px;
+}
+.MON{
+    height: 50px;
+    width: 75px;
+    border-radius: 5px;
+}
+.bottom{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:15px;
+    position: relative;
+    top:-15px;
+    
+}
+.zabravena{
+    font-size: 13px;
+    font-style: italic;
+}
+.Ili{
+    font-weight: bold;
+    font-size: 17px;
+}
+.icon1{
+    position: absolute;
+    top:26px;
+    left:33px;
+}
+.icon2{
+    position: absolute;
+    top:90px;
+    left:35px;
+}
+.icon3{
+    position: absolute;
+    top:92px;
+    left:335px;
+}
+.submit:hover{
+    cursor: pointer;
+    background-color: rgb(74, 146, 106)
+}
