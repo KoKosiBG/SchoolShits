@@ -6,9 +6,9 @@ let squares = Array.from(document.getElementsByClassName("box"));
 let selectedFigure = false;
 let elm1 = "";
 let hod = 0;
-document.getElementById("startButton").addEventListener("click", () => {
-  let playerOne = document.getElementById("playerOne");
+let playerOne = document.getElementById("playerOne");
   let playerTwo = document.getElementById("playerTwo");
+document.getElementById("startButton").addEventListener("click", () => {
   playerOne.style.display = "block";
   name1 = document.getElementById("name1").value;
   playerTwo.style.display = "block";
@@ -147,15 +147,35 @@ function DragStartFunction() {
 }
 // Check if the game ended //
 function GameOver() {
-  let color = hod % 2
+  let color = 0
+  if (hod % 2 === 0) {
+    color = 1
+  }
   if (HasMoves() === false) {
     if (IsInCheck(color) === true) {
-      alert("Check mate")
+      End("Player one won")
     }
     else{
       alert("Stale mate")
     }
   }
+}
+//
+function End(text) {
+  
+  document.getElementById("start").style.display = "none";
+  document.getElementsByClassName("container")[0].style.display = "none";
+  document.getElementsByClassName("end")[0].style.display = "block"
+  playerOne.style.display = "none"
+  playerTwo.style.display = "none"
+  if(playerOne.innerText === "Koceto" || playerTwo.innerText === "Koceto"){
+    document.getElementsByClassName("endText")[0].innerText = "Koce ti si unikalen pedal"
+  }
+  else{
+    document.getElementsByClassName("endText")[0].innerText = text
+  }
+  
+  
 }
 // Checks if legal moves are available //
 function HasMoves() {
@@ -166,15 +186,19 @@ function HasMoves() {
   let returner = 0
   squares.forEach(element =>{
     if (pieces[color].includes(element.innerText)) {
-      console.log("vlizam");
       ColorLegal(element)
+      squares.forEach(element =>{
+        if (element.childElementCount > 0) {
+          returner = 1
+        }
+      })
+      selectedFigure = false
+      Color()
     }
   })
-  squares.forEach(element =>{
-    if (element.childElementCount > 0) {
-      returner = 1
-    }
-  })
+  
+  
+ 
   if (returner === 1) {
     return true
   }
@@ -187,7 +211,7 @@ function HasMoves() {
 
 function Click(element) {
   IsCastlingPosible();
-  GameOver()
+  // GameOver()
 
   if (element.childElementCount > 0) {
     if (element.firstElementChild.className === "legal") {
@@ -278,7 +302,7 @@ function Click(element) {
     Color();
     selectedFigure = false;
   }
-
+GameOver()
   if (element.innerText.length !== 0 && !selectedFigure) {
     ColorLegal(element);
   }
@@ -405,7 +429,6 @@ function IsInCheck(color) {
 // Slaps pieces and return if is in check after that //
 
 function SwapPieces(element1, element2,color) {
-  console.log(element2);
   let slap = element1.innerText
   let slapTwo = element2.innerText
   
@@ -585,7 +608,7 @@ function GreenPawn(element, color,from) {
   let element7 = document.getElementById(String(Number(idto) + 11));
   let element8 = document.getElementById(String(Number(idto) + 9));
 
-  if (color === "white" && element1.innerText.length === 0) {
+  if (element1 !== null && color === "white" && element1.innerText.length === 0) {
     if (element1.childElementCount === 0) {
       if (from === "check") {
         element1.classList.add('check')
@@ -597,7 +620,7 @@ function GreenPawn(element, color,from) {
         }
       }
     }
-    if (idto[0] == 7 && element2.innerText.length === 0) {
+    if (element2 !== null && idto[0] == 7 && element2.innerText.length === 0) {
       if (element2.childElementCount === 0) {
         if (from === "check") {
           element2.classList.add('check')
@@ -615,7 +638,7 @@ function GreenPawn(element, color,from) {
     Color();
     selectedFigure = false;
   }
-  if (color === "black" && element3.innerText.length === 0) {
+  if (element3 !== null && color === "black" && element3.innerText.length === 0) {
     if (element3.childElementCount === 0) {
       if (from === "check") {
         element3.classList.add('check')
@@ -628,7 +651,7 @@ function GreenPawn(element, color,from) {
       }
     }
 
-    if (idto[0] == 2 && element4.innerText.length === 0) {
+    if (element4 !== null &&idto[0] == 2 && element4.innerText.length === 0) {
       if (element4.childElementCount === 0) {
         if (from === "check") {
           
