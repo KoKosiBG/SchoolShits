@@ -8,6 +8,14 @@ let elm1 = "";
 let hod = 0;
 let playerOne = document.getElementById("playerOne");
   let playerTwo = document.getElementById("playerTwo");
+  var rect = document.getElementById("container").getBoundingClientRect();
+  var rectOne = playerOne.getBoundingClientRect();
+    playerOne.style.left = rect.left + "px"
+  playerTwo.style.left = rect.left + "px"
+  playerOne.style.top = rect.top+ "px"
+  playerTwo.style.top = rect.bottom+ "px"
+  console.log(rectOne.height);
+  playerOne.style.top -= rectOne.height + "px"
 document.getElementById("startButton").addEventListener("click", () => {
   playerOne.style.display = "block";
   name1 = document.getElementById("name1").value;
@@ -15,9 +23,24 @@ document.getElementById("startButton").addEventListener("click", () => {
   name2 = document.getElementById("name2").value;
   playerOne.innerText = name1;
   playerTwo.innerText = name2;
+
   document.getElementById("start").style.display = "none";
+
 });
 
+
+  window.addEventListener("resize",()=>{
+    var rect = document.getElementById("container").getBoundingClientRect();
+    playerOne.style.left = rect.left + "px"
+  playerTwo.style.left = rect.left + "px"
+  playerOne.style.top = rect.top+ "px"
+  playerTwo.style.top = rect.bottom+ "px"
+  rectOne = playerOne.getBoundingClientRect();
+  playerOne.style.top -= rectOne.height + "px"
+  console.log(rectOne.height);
+
+
+  })
 // Chnaging cursot //
 
 squares.forEach(element =>{

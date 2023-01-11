@@ -10,6 +10,7 @@ body{
     background-image: linear-gradient(to right,rgba(59, 52, 30, 0.678), rgba(54, 37, 0, 0.726));
 }
 
+
 .container{
 width: 600px;
 height: 600px;
@@ -162,8 +163,8 @@ z-index: 2;
 }
 #playerOne{
     position: absolute;
-    top:108px;
-    left: 660px;
+   
+    
     font-size: 20px;
     text-align: center;
     box-sizing: border-box;
@@ -181,8 +182,7 @@ z-index: 2;
     height: 40px;
     color: white;
     background-color: black;
-    top:750px;
-    left: 660px;
+    
     text-align: center;
     box-sizing: border-box;
     padding-top: 10px;
