@@ -290,7 +290,7 @@ function Click(element) {
            
         }
         
-        if (element.style.backgroundColor === "pink" && selectedFigure) {
+        if (element.style.backgroundColor === "rgba(68, 108, 145, 1)" && selectedFigure) {
             
             elm1 = element.innerText;
             elm1ID = element.id;
@@ -411,7 +411,7 @@ function GreenRook(idto, color) {
     }
     
     selectedFigure = true
-    document.getElementById(idto).style.backgroundColor = "pink"
+    document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
     for (let i = 0; i < 8; i++) {
         
         if (document.getElementById((Number(idto) +10+(10*i)).toString()) !== null) {
@@ -587,7 +587,7 @@ function GreenRook(idto, color) {
         // //     squares[i].style.backgroundColor = legalColor
         // // }
         // if (squares[i].id === idto) {
-        //     squares[i].style.backgroundColor = "pink";
+        //     squares[i].style.backgroundColor = "rgba(68, 108, 145, 1)";
         //     selectedFigure = true;
         // }
         
@@ -603,7 +603,7 @@ function GreenBishop(idto, color) {
     if (color === "black") {
         cl = 1
     }
-    document.getElementById(idto).style.backgroundColor = "pink"
+    document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
     for (let i = 0; i < 8; i++) {
         
         if (document.getElementById((Number(idto) +11+(11*i)).toString()) !== null) {
@@ -764,7 +764,7 @@ function GreenBishop(idto, color) {
     //     //     squares[i].style.backgroundColor = legalColor
     //     // }
     //     if (squares[i].id === idto) {
-    //         squares[i].style.backgroundColor = "pink";
+    //         squares[i].style.backgroundColor = "rgba(68, 108, 145, 1)";
     //         selectedFigure = true;
     //     }
         
@@ -773,7 +773,7 @@ function GreenBishop(idto, color) {
 function GreenPawn(idto, color) {
     squares = Array.from(squares);
     
-    document.getElementById(idto).style.backgroundColor = "pink"
+    document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
     selectedFigure = true;
     if (color === "white" && document.getElementById(idto - 10).innerText.length === 0 ) {
         let child = document.createElement('div');
@@ -823,7 +823,7 @@ function GreenPawn(idto, color) {
     }
     if (document.getElementById(String(Number(idto) - 11)) !== null) {
         if (color === "white" && pieces[1].includes(document.getElementById(String(Number(idto) - 11)).innerText)) {
-            document.getElementById(idto).style.backgroundColor = "pink"
+            document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) - 11));
                 child.setAttribute("class", "legal");
@@ -838,7 +838,7 @@ function GreenPawn(idto, color) {
     
     if ((document.getElementById(String(Number(idto) - 9)) !== null)) {
         if (color === "white" && pieces[1].includes(document.getElementById(String(Number(idto) - 9)).innerText)) {
-            document.getElementById(idto).style.backgroundColor = "pink"
+            document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) - 9));
                 child.setAttribute("class", "legal");
@@ -853,7 +853,7 @@ function GreenPawn(idto, color) {
     
     if (document.getElementById(String(Number(idto) + 11)) !== null) {
         if (color === "black" && pieces[0].includes(document.getElementById(String(Number(idto) + 11)).innerText)) {
-            document.getElementById(idto).style.backgroundColor = "pink"
+            document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) + 11));
                 child.setAttribute("class", "legal");
@@ -867,7 +867,7 @@ function GreenPawn(idto, color) {
     }
     if ((document.getElementById(String(Number(idto) + 9)) !== null)) {
         if (color === "black" && pieces[0].includes(document.getElementById(String(Number(idto) + 9)).innerText)) {
-            document.getElementById(idto).style.backgroundColor = "pink"
+            document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
             let child = document.createElement('div');
                 child.setAttribute("id", 'd' + String(Number(idto) + 9));
                 child.setAttribute("class", "legal");
@@ -892,7 +892,7 @@ function GreenPawn(idto, color) {
 
 //             // DragShit()
             
-//         if (element.style.backgroundColor === "pink" && selectedFigure) {
+//         if (element.style.backgroundColor === "rgba(68, 108, 145, 1)" && selectedFigure) {
 //             Array.from(squares).forEach(element2 =>{
 //                 element2.addEventListener('click', () =>{
                     
@@ -922,7 +922,7 @@ function GameOver(params) {
 function GreenKing(idto, color) {
     squares = Array.from(squares)
     let king = document.getElementById(idto)
-    king.style.backgroundColor = "pink"
+    king.style.backgroundColor = "rgba(68, 108, 145, 1)"
     for (let i = 0; i < squares.length; i++) {
         let ID = Number(squares[i].id);
         if (king.id == ID + 1 || king.id == ID -1 || king.id == ID + 10  || king.id == ID - 10 || king.id == ID + 11 || king.id == ID + 9 || king.id == ID -9 || king.id == ID - 11) {
@@ -985,7 +985,7 @@ function GreenKing(idto, color) {
 
 function GreenKnight(idto, color) {
     idto = Number(idto);
-    document.getElementById(idto).style.backgroundColor = "pink"
+    document.getElementById(idto).style.backgroundColor = "rgba(68, 108, 145, 1)"
     selectedFigure = true;
     let colorInt = 0;
     if(color === "black"){
@@ -1030,7 +1030,7 @@ Array.from(squares).forEach(element =>{
     //         Color();
     //         selectedFigure = false;
     //     }
-    //     if (element.style.backgroundColor === "pink" && selectedFigure) {
+    //     if (element.style.backgroundColor === "rgba(68, 108, 145, 1)" && selectedFigure) {
     //         elm1 = element.innerText;
     //         elm1ID = element.id;
             

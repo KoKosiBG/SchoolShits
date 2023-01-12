@@ -15,9 +15,11 @@ let container = document.getElementsByClassName("container")[0]
     playerOne.style.left = rect.left + "px"
   playerTwo.style.left = rect.left + "px"
 
-  playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
-  playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
-  
+  // playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
+  // playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
+
+  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
 
 document.getElementById("startButton").addEventListener("click", () => {
   playerOne.style.display = "block";
@@ -33,14 +35,16 @@ document.getElementById("startButton").addEventListener("click", () => {
 
 
   window.addEventListener("resize",()=>{
-
+    
    rect = container.getBoundingClientRect();
 
     playerOne.style.left = rect.left + "px"
     playerTwo.style.left = rect.left + "px"
  
-  playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
-  playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
+  // playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
+  // playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
+  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
 
 
   })
@@ -57,6 +61,22 @@ squares.forEach(element =>{
     })
 
 })
+// 
+function HodChanged() {
+  if (hod % 2 !== 0) {
+    playerOne.style.backgroundColor = "rgba(68, 108, 145, 1)"
+    playerTwo.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+    playerOne.style.opacity = "1"
+    playerTwo.style.opacity = "0.7"
+    
+  }
+  else{
+    playerOne.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+    playerTwo.style.backgroundColor = "rgba(68, 108, 145, 1)"
+    playerOne.style.opacity = "0.7"
+    playerTwo.style.opacity = "1"
+  }
+}
 
 // Color function. Colors the squares and remove the dots //
 
@@ -64,7 +84,7 @@ function Color(from) {
   for (let index = 0; index < squares.length; index++) {
     if (squares[index].id[0] % 2 === 0) {
       if (squares[index].id % 2 === 0) {
-        squares[index].style.backgroundColor = "#786037";
+        squares[index].style.backgroundColor = "#2c465e";
       } else {
         squares[index].style.backgroundColor = "white";
       }
@@ -72,7 +92,7 @@ function Color(from) {
       if (squares[index].id % 2 === 0) {
         squares[index].style.backgroundColor = "white";
       } else {
-        squares[index].style.backgroundColor = "#786037";
+        squares[index].style.backgroundColor = "#2c465e";
       }
     }
   }
@@ -165,7 +185,7 @@ function DragStartFunction() {
              moved.style.backgroundColor = "transparent"
               moved.style.border = "none"
             
-           let timeout1 = setTimeout(() => {
+          setTimeout(() => {
                 moved.style.backgroundColor = backgroundColor
                 moved.style.fontSize = "0"
                 
@@ -243,6 +263,7 @@ function Click(element) {
     if (element.firstElementChild.className === "legal") {
       element.innerText = elm1.innerText;
       hod++;
+      HodChanged()
       Array.from(squares).forEach((element3) => {
         if (element3.id[0] == 8 || element3.id[0] == 1) {
           if (element3.innerText === "♟" || element3.innerText === "♙") {
@@ -277,6 +298,8 @@ function Click(element) {
           }
         }
       });
+     
+
 
       elm1.innerText = "";
       selectedFigure = false;
@@ -292,6 +315,7 @@ function Click(element) {
           document.getElementById("18").innerText = "";
           document.getElementById("15").innerText = "";
           hod++;
+          HodChanged()
 
           break;
         case "87":
@@ -300,6 +324,7 @@ function Click(element) {
           document.getElementById("88").innerText = "";
           document.getElementById("85").innerText = "";
           hod++;
+          HodChanged()
           break;
         case "13":
           document.getElementById("14").innerText = "♜";
@@ -307,6 +332,7 @@ function Click(element) {
           document.getElementById("11").innerText = "";
           document.getElementById("15").innerText = "";
           hod++;
+          HodChanged()
           break;
         case "83":
           document.getElementById("84").innerText = "♖";
@@ -314,6 +340,7 @@ function Click(element) {
           document.getElementById("81").innerText = "";
           document.getElementById("85").innerText = "";
           hod++;
+          HodChanged()
           break;
 
         default:
@@ -332,8 +359,10 @@ GameOver()
   if (element.innerText.length !== 0 && !selectedFigure) {
     ColorLegal(element);
   }
+  console.log(element.style.backgroundColor );
 
-  if (element.style.backgroundColor === "pink" && selectedFigure) {
+  if (element.style.backgroundColor === "rgb(92, 146, 196)" && selectedFigure) {
+    console.log("vlqqam");
     elm1 = element;
   }
 }
@@ -525,7 +554,7 @@ function GreenRook(element1, color,from) {
   }
   if (from !== "check") {
     selectedFigure = true;
-  element1.style.backgroundColor = "pink";
+  element1.style.backgroundColor = "rgb(92, 146, 196)";
 
   }
   
@@ -596,7 +625,7 @@ function GreenBishop(element1, color,from) {
     cl = 1;
   }
   if (from !== "check") {
-    element1.style.backgroundColor = "pink";
+    element1.style.backgroundColor = "rgb(92, 146, 196)";
   selectedFigure = true;
   }
   
@@ -612,7 +641,7 @@ function GreenBishop(element1, color,from) {
 function GreenPawn(element, color,from) {
   if (from !== "check") {
     
-    element.style.backgroundColor = "pink";
+    element.style.backgroundColor = "rgb(92, 146, 196)";
     selectedFigure = true;
   }
   let cl = 0
@@ -698,7 +727,7 @@ function GreenPawn(element, color,from) {
   if (element5 !== null) {
     if (color === "white" && pieces[1].includes(element5.innerText)) {
      if (from !== "check") {
-        element.style.backgroundColor = "pink";
+        element.style.backgroundColor = "rgb(92, 146, 196)";
       } 
       
       if (element5.childElementCount === 0) {
@@ -718,7 +747,7 @@ function GreenPawn(element, color,from) {
   if (element6 !== null) {
     if (color === "white" && pieces[1].includes(element6.innerText)) {
       if (from !== "check") {
-        element.style.backgroundColor = "pink";
+        element.style.backgroundColor = "rgb(92, 146, 196)";
       } 
       if (element6.childElementCount === 0) {
         if (from === "check") {
@@ -737,7 +766,7 @@ function GreenPawn(element, color,from) {
   if (element7 !== null) {
     if (color === "black" && pieces[0].includes(element7.innerText)) {
       if (from !== "check") {
-        element.style.backgroundColor = "pink";
+        element.style.backgroundColor = "rgb(92, 146, 196)";
       } 
       if (element7.childElementCount === 0) {
         if (from === "check") {
@@ -755,7 +784,7 @@ function GreenPawn(element, color,from) {
   if (element8 !== null) {
     if (color === "black" && pieces[0].includes(element8.innerText)) {
       if (from !== "check") {
-        element.style.backgroundColor = "pink";
+        element.style.backgroundColor = "rgb(92, 146, 196)";
       } 
       if (element8.childElementCount === 0) {
         if (from === "check") {
@@ -777,7 +806,7 @@ function GreenPawn(element, color,from) {
 function GreenKing(king, color,from) {
   if (from !== "check") {
     
-    king.style.backgroundColor = "pink";
+    king.style.backgroundColor = "rgb(92, 146, 196)";
   }
   let cl = 0
   if (color === "black") {
@@ -899,7 +928,7 @@ function GreenKing(king, color,from) {
 
 function GreenKnight(element, color,from) {
   if (from !== "check") {
-    element.style.backgroundColor = "pink";
+    element.style.backgroundColor = "rgb(92, 146, 196)";
     selectedFigure = true;
   }
   

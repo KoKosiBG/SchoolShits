@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Quicksand&display=swap');
 body{
     display: flex;
     justify-content:center;
@@ -7,7 +7,8 @@ body{
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-image: linear-gradient(to right,rgba(59, 52, 30, 0.678), rgba(54, 37, 0, 0.726));
+    background-color: #232832;
+    /* background-image: linear-gradient(to right,rgba(59, 52, 30, 0.678), rgba(54, 37, 0, 0.726)); */
 }
 
 
@@ -17,7 +18,7 @@ height: 600px;
 display:flex;
 flex-direction: column;
 border: 1px solid black;
-box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
+/* box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%); */
 position: absolute;
 /* display: none; */
 }
@@ -30,7 +31,7 @@ justify-content: center;
 border-radius: 40px;
 color: aliceblue;
 border: 1px solid black;
-box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
+/* box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%); */
 background-color: #786037;
 position: absolute;
 display: none;
@@ -67,6 +68,8 @@ z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: none;
+    border: none;
 }
 
 .weapon-dragging-class {
@@ -107,7 +110,7 @@ z-index: 2;
     
 }
 #rook, #knight{
-    background-color: grey;
+    background-color: #786037;
     
 }
 .legal,.castle{
@@ -117,10 +120,10 @@ z-index: 2;
     position: absolute;
 }
 .legal{
-    background-color: red;
+    background-color: rgb(92, 146, 196);
 }
 .castle{
-    background-color: #ffee05;
+    background-color: #74b8f7;
 }
 #input1{
     font-size: 50px;
@@ -163,31 +166,39 @@ z-index: 2;
 }
 #playerOne{
     position: absolute;
-   
-    
-    font-size: 20px;
     text-align: center;
     box-sizing: border-box;
     padding-top: 10px;
     position: absolute;
-    width: 150px;
-    height: 40px;
+    width: 200px;
+    height: 50px;
     color: white;
-    background-color: black;
+    /* background-color: #446c91; */
+    background-color: rgba(68, 108, 145, 0.6);
     display: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+    font-size: 25px;
+    opacity: 0.7;
 }
 #playerTwo{
     position: absolute;
-    width: 150px;
-    height: 40px;
+    width: 200px;
+    height: 50px;
     color: white;
-    background-color: black;
-    
+    /* background-color: #446c91; */
+    background-color: rgba(68, 108, 145, 1);
     text-align: center;
     box-sizing: border-box;
     padding-top: 10px;
-    font-size: 20px;
     display: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+    font-size: 25px;
 }
 #denis{
     display: none;
