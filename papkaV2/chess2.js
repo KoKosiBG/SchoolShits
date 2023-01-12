@@ -7,15 +7,18 @@ let selectedFigure = false;
 let elm1 = "";
 let hod = 0;
 let playerOne = document.getElementById("playerOne");
+let container = document.getElementsByClassName("container")[0]
   let playerTwo = document.getElementById("playerTwo");
-  var rect = document.getElementById("container").getBoundingClientRect();
+  var rect = container.getBoundingClientRect();
   var rectOne = playerOne.getBoundingClientRect();
+
     playerOne.style.left = rect.left + "px"
   playerTwo.style.left = rect.left + "px"
-  playerOne.style.top = rect.top+ "px"
-  playerTwo.style.top = rect.bottom+ "px"
-  console.log(rectOne.height);
-  playerOne.style.top -= rectOne.height + "px"
+
+  playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
+  
+
 document.getElementById("startButton").addEventListener("click", () => {
   playerOne.style.display = "block";
   name1 = document.getElementById("name1").value;
@@ -30,14 +33,14 @@ document.getElementById("startButton").addEventListener("click", () => {
 
 
   window.addEventListener("resize",()=>{
-    var rect = document.getElementById("container").getBoundingClientRect();
+
+   rect = container.getBoundingClientRect();
+
     playerOne.style.left = rect.left + "px"
-  playerTwo.style.left = rect.left + "px"
-  playerOne.style.top = rect.top+ "px"
-  playerTwo.style.top = rect.bottom+ "px"
-  rectOne = playerOne.getBoundingClientRect();
-  playerOne.style.top -= rectOne.height + "px"
-  console.log(rectOne.height);
+    playerTwo.style.left = rect.left + "px"
+ 
+  playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
+  playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
 
 
   })
