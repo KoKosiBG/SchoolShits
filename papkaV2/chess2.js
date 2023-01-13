@@ -1,7 +1,4 @@
-let pieces = [
-  ["♖", "♘", "♗", "♕", "♔", "♙"],
-  ["♜", "♞", "♝", "♛", "♚", "♟"],
-];
+let pieces = [["♜", "♞", "♝", "♛", "♚", "♟"],["♖", "♘", "♗", "♕", "♔", "♙"],]
 let squares = Array.from(document.getElementsByClassName("box"));
 let selectedFigure = false;
 let elm1 = "";
@@ -11,17 +8,29 @@ let container = document.getElementsByClassName("container")[0]
   let playerTwo = document.getElementById("playerTwo");
   var rect = container.getBoundingClientRect();
   var rectOne = playerOne.getBoundingClientRect();
+let whiteImage = document.getElementsByClassName("white")[0]
+let blackImage = document.getElementsByClassName("black")[0]
+let white = true
 
-    playerOne.style.left = rect.left + "px"
-  playerTwo.style.left = rect.left + "px"
+whiteImage.addEventListener('click', ()=>{
+  whiteImage.style.border = "1px solid white"
+  blackImage.style.border = "none"
+  pieces = [["♜", "♞", "♝", "♛", "♚", "♟"],["♖", "♘", "♗", "♕", "♔", "♙"],]
+  white = true
+})
 
-  // playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
-  // playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
-
-  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
-  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
-
+blackImage.addEventListener('click', ()=>{
+  whiteImage.style.border = "none"
+  blackImage.style.border = "1px solid white"
+  
+  pieces = [
+    ["♖", "♘", "♗", "♕", "♔", "♙"],
+    ["♜", "♞", "♝", "♛", "♚", "♟"],
+  ];
+  white = false
+})
 document.getElementById("startButton").addEventListener("click", () => {
+ 
   playerOne.style.display = "block";
   name1 = document.getElementById("name1").value;
   playerTwo.style.display = "block";
@@ -29,10 +38,57 @@ document.getElementById("startButton").addEventListener("click", () => {
   playerOne.innerText = name1;
   playerTwo.innerText = name2;
 
+  container.style.display = "flex"
+  rect = container.getBoundingClientRect();
   document.getElementById("start").style.display = "none";
+
+  playerOne.style.left = rect.left + "px"
+  playerTwo.style.left = rect.left + "px"
+
+  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
+
+  SettingPieces()
 
 });
 
+function SettingPieces() {
+  squares[0].innerText = pieces[0][0]
+  squares[1].innerText = pieces[0][1]
+  squares[2].innerText = pieces[0][2]
+  squares[3].innerText = pieces[0][3]
+  squares[4].innerText = pieces[0][4]
+  squares[5].innerText = pieces[0][2]
+  squares[6].innerText = pieces[0][1]
+  squares[7].innerText = pieces[0][0]
+
+  squares[8].innerText = pieces[0][5]
+  squares[9].innerText = pieces[0][5]
+  squares[10].innerText = pieces[0][5]
+  squares[11].innerText = pieces[0][5]
+  squares[12].innerText = pieces[0][5]
+  squares[13].innerText = pieces[0][5]
+  squares[14].innerText = pieces[0][5]
+  squares[15].innerText = pieces[0][5]
+
+  squares[56].innerText = pieces[1][0]
+  squares[57].innerText = pieces[1][1]
+  squares[58].innerText = pieces[1][2]
+  squares[59].innerText = pieces[1][3]
+  squares[60].innerText = pieces[1][4]
+  squares[61].innerText = pieces[1][2]
+  squares[62].innerText = pieces[1][1]
+  squares[63].innerText = pieces[1][0]
+
+  squares[48].innerText = pieces[1][5]
+  squares[49].innerText = pieces[1][5]
+  squares[50].innerText = pieces[1][5]
+  squares[51].innerText = pieces[1][5]
+  squares[52].innerText = pieces[1][5]
+  squares[53].innerText = pieces[1][5]
+  squares[54].innerText = pieces[1][5]
+  squares[55].innerText = pieces[1][5]
+}
 
   window.addEventListener("resize",()=>{
     
@@ -84,7 +140,7 @@ function Color(from) {
   for (let index = 0; index < squares.length; index++) {
     if (squares[index].id[0] % 2 === 0) {
       if (squares[index].id % 2 === 0) {
-        squares[index].style.backgroundColor = "#2c465e";
+        squares[index].style.backgroundColor = "#446c91";
       } else {
         squares[index].style.backgroundColor = "white";
       }
@@ -92,7 +148,7 @@ function Color(from) {
       if (squares[index].id % 2 === 0) {
         squares[index].style.backgroundColor = "white";
       } else {
-        squares[index].style.backgroundColor = "#2c465e";
+        squares[index].style.backgroundColor = "#446c91";
       }
     }
   }
@@ -131,22 +187,22 @@ let h8Rook = false;
 let Wking = false;
 let Bking = false;
 function IsCastlingPosible() {
-  if (document.getElementById("11").innerText !== "♜") {
+  if (document.getElementById("11").innerText !== pieces[1][0]) {
     a1Rook = true;
   }
-  if (document.getElementById("81").innerText !== "♖") {
+  if (document.getElementById("81").innerText !== pieces[0][0]) {
     a8Rook = true;
   }
-  if (document.getElementById("18").innerText !== "♜") {
+  if (document.getElementById("18").innerText !== pieces[1][0]) {
     h1Rook = true;
   }
-  if (document.getElementById("88").innerText !== "♖") {
+  if (document.getElementById("88").innerText !== pieces[0][0]) {
     h8Rook = true;
   }
-  if (document.getElementById("15").innerText !== "♚") {
+  if (document.getElementById("15").innerText !== pieces[1][4]) {
     Wking = true;
   }
-  if (document.getElementById("85").innerText !== "♔") {
+  if (document.getElementById("85").innerText !== pieces[0][4]) {
     Bking = true;
   }
 }
@@ -266,14 +322,14 @@ function Click(element) {
       HodChanged()
       Array.from(squares).forEach((element3) => {
         if (element3.id[0] == 8 || element3.id[0] == 1) {
-          if (element3.innerText === "♟" || element3.innerText === "♙") {
-            if (element3.innerText === "♟") {
+          if (element3.innerText === pieces[1][5] || element3.innerText === pieces[0][5]) {
+            if (element3.innerText === pieces[1][5]) {
               document.getElementById("promotion").style.display = "flex";
               document.getElementById("queen").innerText = pieces[1][3];
               document.getElementById("bishop").innerText = pieces[1][2];
               document.getElementById("knight").innerText = pieces[1][1];
               document.getElementById("rook").innerText = pieces[1][0];
-            } else if (element3.innerText === "♙") {
+            } else if (element3.innerText === pieces[0][5]) {
               document.getElementById("promotion").style.display = "flex";
               document.getElementById("queen").innerText = pieces[0][3];
               document.getElementById("bishop").innerText = pieces[0][2];
@@ -310,8 +366,8 @@ function Click(element) {
     if (element.firstChild.className === "castle") {
       switch (element.id) {
         case "17":
-          document.getElementById("16").innerText = "♜";
-          document.getElementById("17").innerText = "♚";
+          document.getElementById("16").innerText = pieces[1][0];
+          document.getElementById("17").innerText = pieces[1][4];
           document.getElementById("18").innerText = "";
           document.getElementById("15").innerText = "";
           hod++;
@@ -319,24 +375,24 @@ function Click(element) {
 
           break;
         case "87":
-          document.getElementById("86").innerText = "♖";
-          document.getElementById("87").innerText = "♔";
+          document.getElementById("86").innerText = pieces[0][0];
+          document.getElementById("87").innerText = pieces[0][4];
           document.getElementById("88").innerText = "";
           document.getElementById("85").innerText = "";
           hod++;
           HodChanged()
           break;
         case "13":
-          document.getElementById("14").innerText = "♜";
-          document.getElementById("13").innerText = "♚";
+          document.getElementById("14").innerText = pieces[1][0];
+          document.getElementById("13").innerText = pieces[1][4];
           document.getElementById("11").innerText = "";
           document.getElementById("15").innerText = "";
           hod++;
           HodChanged()
           break;
         case "83":
-          document.getElementById("84").innerText = "♖";
-          document.getElementById("83").innerText = "♔";
+          document.getElementById("84").innerText = pieces[0][0];
+          document.getElementById("83").innerText = pieces[0][4];
           document.getElementById("81").innerText = "";
           document.getElementById("85").innerText = "";
           hod++;

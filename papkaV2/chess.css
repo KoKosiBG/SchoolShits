@@ -7,7 +7,14 @@ body{
     height: 100vh;
     margin: 0;
     padding: 0;
+    overflow: hidden;
     background-color: #232832;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
     /* background-image: linear-gradient(to right,rgba(59, 52, 30, 0.678), rgba(54, 37, 0, 0.726)); */
 }
 
@@ -15,11 +22,12 @@ body{
 .container{
 width: 600px;
 height: 600px;
-display:flex;
+display:none;
 flex-direction: column;
 border: 1px solid black;
 /* box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%); */
 position: absolute;
+
 /* display: none; */
 }
 .end{
@@ -32,13 +40,20 @@ border-radius: 40px;
 color: aliceblue;
 border: 1px solid black;
 /* box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%); */
-background-color: #786037;
+background-color: #446c91;
 position: absolute;
 display: none;
 }
 .endText{
     text-align: center;
     font-size: 50px;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+}
+.inputLable{
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
 }
 
 #start{
@@ -50,8 +65,9 @@ align-items: center;
 justify-content: space-around;
 border: 1px solid black;
 box-shadow: 0 9px 18px rgb(0 0 0 / 16%), 0 9px 18px rgb(0 0 0 / 23%);
-background-color: #786037;
+background-color: #446c91;
 position: relative;
+border-radius: 10px;
 z-index: 2;
 /* display: none; */
 }
@@ -72,11 +88,6 @@ z-index: 2;
     border: none;
 }
 
-.weapon-dragging-class {
-	animation: ShakeEffect .75s;
-	animation-iteration-count: infinite;
-    width: 50px;
-}
 
 #draggable {
     width: 150px;
@@ -92,7 +103,6 @@ z-index: 2;
     position: absolute;
     width: 300px;;
     height: 350px;
-    
     left: 1400px;
     display: none;
     flex-direction: column;
@@ -110,8 +120,15 @@ z-index: 2;
     
 }
 #rook, #knight{
-    background-color: #786037;
-    
+    background-color: #2c465e;
+}
+#queen{
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+#knight{
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 .legal,.castle{
     width: 25px;
@@ -125,45 +142,75 @@ z-index: 2;
 .castle{
     background-color: #74b8f7;
 }
-#input1{
-    font-size: 50px;
+#input1,#input2{
+    font-size: 30px;
+    color: #232832;
+    z-index: 2;
+    position: relative;
+    top: 20px;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+    
+}
+#name1,#name2{
+    font-size: 30px;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    border: none;
+    outline: none;
     color: white;
-    position: relative;
-    z-index: 2;
-    top:45px;
-   
+    border-bottom: 3px solid #355675;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+    width: 80%;
+    text-align: center;
 }
-#name1{
-    font-size: 40px;
-    position: relative;
-    z-index: 2;
-    
-    
-}
-#startButton{
+#startButton,#restart{
     width: 200px;
     height: 80px;
-    background-color: #ffee05;
+    background-color: #2c465e;
     z-index: 6;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 600;
     position: relative;
     font-size: 45px;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+    font-variant: small-caps;
+    border-radius: 10px;
     
+    color: white;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
 }
-#input2{
+#startButton{
+    position: relative;
+    top: -50px;
+}
+#restart{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+#startButton:hover{
+    transform: scale(1.1);
+    -webkit-box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
+-moz-box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
+box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
+}
+/* #input2{
     font-size: 50px;
     color: white;
     position: relative;
     z-index: 2;
     
-}
-#name2{
+} */
+/* #name2{
     font-size: 40px;
     position: relative;
     z-index: 2;
     top:-45px;
-}
+} */
 #playerOne{
     position: absolute;
     text-align: center;
@@ -203,3 +250,199 @@ z-index: 2;
 #denis{
     display: none;
 }
+
+.whiteNblack{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: -25px;
+    
+    
+}
+.whiteNblack-text{
+    display: flex;
+    gap: 100px;
+    color: white;
+    font-size: 30px;
+    justify-content: center;
+    font-family: 'Fira Code', monospace!important;
+    font-weight: 700!important;
+}
+#name1::placeholder{
+    text-align: center;
+    color: rgba(255, 255, 255, 0.404);
+}
+#name2::placeholder{
+    text-align: center;
+    color: rgba(255, 255, 255, 0.404);
+}
+
+.whiteNblack-images{
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    position: relative;
+    top: -15px;
+    cursor: pointer;
+}
+.white,.black{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    font-size: 70px;
+    transition: 0.3s;
+}
+.white{
+    border: 1px solid white;
+    border-radius: 50%;
+}
+.black{
+    border-radius: 50%;
+}
+
+@keyframes firework {
+    0% { transform: translate(var(--x), var(--initialY)); width: var(--initialSize); opacity: 1; }
+    50% { width: 0.5vmin; opacity: 1; }
+    100% { width: var(--finalSize); opacity: 0; }
+  }
+  
+  /* @keyframes fireworkPseudo {
+    0% { transform: translate(-50%, -50%); width: var(--initialSize); opacity: 1; }
+    50% { width: 0.5vmin; opacity: 1; }
+    100% { width: var(--finalSize); opacity: 0; }
+  }
+   */
+  .firework,
+  .firework::before,
+  .firework::after
+  {
+    --initialSize: 0.5vmin;
+    --finalSize: 45vmin;
+    --particleSize: 0.2vmin;
+    --color1: yellow;
+    --color2: khaki;
+    --color3: white;
+    --color4: lime;
+    --color5: gold;
+    --color6: mediumseagreen;
+    --y: -30vmin;
+    --x: -50%;
+    --initialY: 60vmin;
+    content: "";
+    animation: firework 2s infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, var(--y));
+    width: var(--initialSize);
+    aspect-ratio: 1;
+    background: 
+      /*
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 0%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 0%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 100%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
+      */
+      
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 50% 0%,
+      radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 50%,
+      radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 50% 100%,
+      radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 0% 50%,
+      
+      /* bottom right */
+      radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 80% 90%,
+      radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 95% 90%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 90% 70%,
+      radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 60%,
+      radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 55% 80%,
+      radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 70% 77%,
+      
+      /* bottom left */
+      radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 22% 90%,
+      radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 45% 90%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 70%,
+      radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 10% 60%,
+      radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 31% 80%,
+      radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 28% 77%,
+      radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 13% 72%,
+      
+      /* top left */
+      radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 80% 10%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 95% 14%,
+      radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 90% 23%,
+      radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 100% 43%,
+      radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 85% 27%,
+      radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 77% 37%,
+      radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 60% 7%,
+      
+      /* top right */
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 22% 14%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 45% 20%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 34%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 10% 29%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 31% 37%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 28% 7%,
+      radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 13% 42%
+      ;
+    background-size: var(--initialSize) var(--initialSize);
+    background-repeat: no-repeat;
+  }
+  
+  .firework::before {
+    --x: -50%;
+    --y: -50%;
+    --initialY: -50%;
+  /*   transform: translate(-20vmin, -2vmin) rotate(40deg) scale(1.3) rotateY(40deg); */
+    transform: translate(-50%, -50%) rotate(40deg) scale(1.3) rotateY(40deg);
+  /*   animation: fireworkPseudo 2s infinite; */
+  }
+  
+  .firework::after {
+    --x: -50%;
+    --y: -50%;
+    --initialY: -50%;
+  /*   transform: translate(44vmin, -50%) rotate(170deg) scale(1.15) rotateY(-30deg); */
+    transform: translate(-50%, -50%) rotate(170deg) scale(1.15) rotateY(-30deg);
+  /*   animation: fireworkPseudo 2s infinite; */
+  }
+  
+  .firework:nth-child(2) {
+    --x: 30vmin;
+  }
+  
+  .firework:nth-child(2),
+  .firework:nth-child(2)::before,
+  .firework:nth-child(2)::after {
+    --color1: pink;
+    --color2: violet;
+    --color3: fuchsia;
+    --color4: orchid;
+    --color5: plum;
+    --color6: lavender;  
+    --finalSize: 40vmin;
+    left: 30%;
+    top: 60%;
+    animation-delay: -0.25s;
+  }
+  
+  .firework:nth-child(3) {
+    --x: -30vmin;
+    --y: -50vmin;
+  }
+  
+  .firework:nth-child(3),
+  .firework:nth-child(3)::before,
+  .firework:nth-child(3)::after {
+    --color1: cyan;
+    --color2: lightcyan;
+    --color3: lightblue;
+    --color4: PaleTurquoise;
+    --color5: SkyBlue;
+    --color6: lavender;
+    --finalSize: 35vmin;
+    left: 70%;
+    top: 60%;
+    animation-delay: -0.4s;
+  }
