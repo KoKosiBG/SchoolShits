@@ -188,10 +188,17 @@ z-index: 2;
     top: -50px;
 }
 #restart{
-    position: relative;
+    position: absolute !important;
     left: 50%;
     transform: translate(-50%);
 }
+#restart:hover{
+    transform: translate(-50%);
+    -webkit-box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
+-moz-box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
+box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
+}
+
 #startButton:hover{
     transform: scale(1.1);
     -webkit-box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);

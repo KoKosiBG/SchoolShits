@@ -53,6 +53,12 @@ document.getElementById("startButton").addEventListener("click", () => {
 });
 
 function SettingPieces() {
+
+  squares.forEach(element =>{
+    if(element.innerText.length > 0){
+      element.innerText = ""
+    }
+  })
   squares[0].innerText = pieces[0][0]
   squares[1].innerText = pieces[0][1]
   squares[2].innerText = pieces[0][2]
@@ -88,6 +94,8 @@ function SettingPieces() {
   squares[53].innerText = pieces[1][5]
   squares[54].innerText = pieces[1][5]
   squares[55].innerText = pieces[1][5]
+
+  
 }
 
   window.addEventListener("resize",()=>{
@@ -255,30 +263,54 @@ function GameOver() {
   }
   if (HasMoves() === false) {
     if (IsInCheck(color) === true) {
-      End("Player one won")
+      End()
     }
     else{
-      alert("Stale mate")
+      End("stalemate")
     }
   }
 }
 //
 function End(text) {
-  
+  let endText = document.getElementsByClassName("endText")[0]
   document.getElementById("start").style.display = "none";
   document.getElementsByClassName("container")[0].style.display = "none";
   document.getElementsByClassName("end")[0].style.display = "block"
   playerOne.style.display = "none"
   playerTwo.style.display = "none"
   if(playerOne.innerText === "Koceto" || playerTwo.innerText === "Koceto"){
-    document.getElementsByClassName("endText")[0].innerText = "Koce ti si unikalen pedal"
+    endText.innerText = "Koce ti si unikalen pedal"
+  }
+  else if(hod % 2 === 0){
+    endText.innerText = playerOne.innerText + " won"
+  }
+  else if(hod % 2 !== 0){
+    endText.innerText = playerTwo.innerText + " won"
+  }
+  else if(text = "stalemate"){
+    endText.innerText = "Stalemate(draw)"
   }
   else{
-    document.getElementsByClassName("endText")[0].innerText = text
+    endText.innerText = "Draw"
   }
   
-  
 }
+
+document.getElementById("restart").addEventListener('click', ()=>{
+  hod = 0
+  selectedFigure = false
+  document.getElementsByClassName("end")[0].style.display = "none"
+  container.style.display = "flex"
+  document.getElementById("playerOne").style.display = "absolute"
+  document.getElementById("playerTwo").style.display = "absolute"
+  rect = container.getBoundingClientRect
+  playerOne.style.left = rect.left + "px"
+    playerTwo.style.left = rect.left + "px"
+  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
+  SettingPieces()
+
+})
 // Checks if legal moves are available //
 function HasMoves() {
   let color = 0
