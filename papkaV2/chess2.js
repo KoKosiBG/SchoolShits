@@ -278,7 +278,10 @@ function End(text) {
   document.getElementsByClassName("end")[0].style.display = "block"
   playerOne.style.display = "none"
   playerTwo.style.display = "none"
-  if(playerOne.innerText === "Koceto" || playerTwo.innerText === "Koceto"){
+  if (playerOne.innerText === "Denis" || playerTwo.innerText === "Denis") {
+    endText.innerText = "Денка шахът не е за всеки"
+  }
+  else if(playerOne.innerText === "Koceto" || playerTwo.innerText === "Koceto"){
     endText.innerText = "Koce ti si unikalen pedal"
   }
   else if(hod % 2 === 0 && text !== "stalemate" && text !== "draw"){
@@ -385,7 +388,7 @@ function Draw() {
     }
   })
 
-  if (!rooks && !queen && !pawn) {
+  if (!rooks && !queens && !pawns) {
     if ((knightsB <= 2 && knightsW === 0 && bishopB === 0 && bishopW === 0) || (knightsB === 0 && knightsW <= 2 && bishopB === 0 && bishopW === 0) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 0) || (knightsB === 0 && knightsW === 0 && bishopB <= 0 && bishopW <= 1) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1) || (knightsB === 1 && knightsW === 1 && bishopB === 0 && bishopW === 0)) {
       End("draw")
     }
@@ -494,15 +497,13 @@ function Click(element) {
     Color();
     selectedFigure = false;
   }
-  Draw()
+  // Draw()
 GameOver()
   if (element.innerText.length !== 0 && !selectedFigure) {
     ColorLegal(element);
   }
-  console.log(element.style.backgroundColor );
 
   if (element.style.backgroundColor === "rgb(92, 146, 196)" && selectedFigure) {
-    console.log("vlqqam");
     elm1 = element;
   }
 }
@@ -639,123 +640,6 @@ function SwapPieces(element1, element2,color) {
   return true
   
 }
-//
-function SwapPiecesCastle(side,color) {
-  switch (side) {
-    case "shortW":
-      document.getElementById("16").innerText = pieces[1][0];
-      document.getElementById("17").innerText = pieces[1][4];
-      document.getElementById("18").innerText = "";
-      document.getElementById("15").innerText = "";
-      
-
-      break;
-    case "shortB":
-      document.getElementById("86").innerText = pieces[0][0];
-      document.getElementById("87").innerText = pieces[0][4];
-      document.getElementById("88").innerText = "";
-      document.getElementById("85").innerText = "";
-     
-      break;
-    case "longW":
-      document.getElementById("14").innerText = pieces[1][0];
-      document.getElementById("13").innerText = pieces[1][4];
-      document.getElementById("11").innerText = "";
-      document.getElementById("15").innerText = "";
-      
-      break;
-    case "longB":
-      document.getElementById("84").innerText = pieces[0][0];
-      document.getElementById("83").innerText = pieces[0][4];
-      document.getElementById("81").innerText = "";
-      document.getElementById("85").innerText = "";
-     
-      break;
-
-    default:
-      break;
-  }
-  if (IsInCheck(color) === true) {
-    switch (side) {
-      case "shortW":
-        document.getElementById("16").innerText = "";
-        document.getElementById("17").innerText = "";
-        document.getElementById("18").innerText = pieces[1][0];
-        document.getElementById("15").innerText = pieces[1][4];
-       
-  
-        break;
-      case "shortB":
-        document.getElementById("86").innerText = "";
-        document.getElementById("87").innerText = "";
-        document.getElementById("88").innerText = pieces[0][0];
-        document.getElementById("85").innerText = pieces[0][4];
-        
-        break;
-      case "longW":
-        document.getElementById("12").innerText = "";
-        document.getElementById("13").innerText = "";
-        document.getElementById("14").innerText = "";
-        document.getElementById("11").innerText = pieces[1][0];
-        document.getElementById("15").innerText = pieces[1][4];
-        
-        break;
-      case "longB":
-        document.getElementById("82").innerText = "";
-        document.getElementById("83").innerText = "";
-        document.getElementById("84").innerText = "";
-        document.getElementById("81").innerText = pieces[0][0];
-        document.getElementById("85").innerText = pieces[0][4];
-        
-        break;
-  
-      default:
-        break;
-    }
-      return false
-  }
-  switch (side) {
-    case "shortW":
-      document.getElementById("16").innerText = "";
-      document.getElementById("17").innerText = "";
-      document.getElementById("18").innerText = pieces[1][0];
-      document.getElementById("15").innerText = pieces[1][4];
-     
-
-      break;
-    case "shortB":
-      document.getElementById("86").innerText = "";
-      document.getElementById("87").innerText = "";
-      document.getElementById("88").innerText = pieces[0][0];
-      document.getElementById("85").innerText = pieces[0][4];
-      
-      break;
-    case "longW":
-      document.getElementById("12").innerText = "";
-      document.getElementById("13").innerText = "";
-      document.getElementById("14").innerText = "";
-      document.getElementById("11").innerText = pieces[1][0];
-      document.getElementById("15").innerText = pieces[1][4];
-      
-      break;
-    case "longB":
-      document.getElementById("82").innerText = "";
-      document.getElementById("83").innerText = "";
-      document.getElementById("84").innerText = "";
-      document.getElementById("81").innerText = pieces[0][0];
-      document.getElementById("85").innerText = pieces[0][4];
-      
-      break;
-
-    default:
-      break;
-  }
-    return true
-
-
-  }
- 
-
 // ROOK ROOK ROOK //
 
 function Rook(direction, element1, cl,from) {
@@ -1129,7 +1013,7 @@ function GreenKing(king, color,from) {
         document.getElementById("17").childElementCount === 0
       ) {
         if (document.getElementById("17").childElementCount === 0) {
-          if (IsInCheck(cl) === false && document.getElementById("16").childElementCount > 0 && SwapPiecesCastle("shortW",cl) === true) {
+          if (IsInCheck(cl) === false && document.getElementById("16").childElementCount > 0 && SwapPieces(king, document.getElementById("17"),cl)) { // && SwapPiecesCastle("shortW",cl) === true
             document.getElementById("17").appendChild(child);
           }
           
@@ -1146,7 +1030,7 @@ function GreenKing(king, color,from) {
         document.getElementById("13").childElementCount === 0
       ) {
         if (document.getElementById("13").childElementCount === 0) {
-          if (IsInCheck(cl) === false && document.getElementById("14").childElementCount > 0  && SwapPiecesCastle("longW",cl) === true) {
+          if (IsInCheck(cl) === false && document.getElementById("14").childElementCount > 0 && SwapPieces(king, document.getElementById("13"),cl)) {//  && SwapPiecesCastle("longW",cl) === true
           document.getElementById("13").appendChild(child);
           }
         }
@@ -1161,7 +1045,7 @@ function GreenKing(king, color,from) {
         document.getElementById("87").childElementCount === 0
       ) {
         if (document.getElementById("87").childElementCount === 0) {
-          if (IsInCheck(cl) === false && document.getElementById("86").childElementCount > 0  && SwapPiecesCastle("shortB",cl) === true) {
+          if (IsInCheck(cl) === false && document.getElementById("86").childElementCount > 0 && SwapPieces(king, document.getElementById("87"),cl)) {//  && SwapPiecesCastle("shortB",cl) === true
           document.getElementById("87").appendChild(child);
           }
         }
@@ -1178,7 +1062,7 @@ function GreenKing(king, color,from) {
         document.getElementById("83").childElementCount === 0
       ) {
         if (document.getElementById("83").childElementCount === 0) {
-          if (IsInCheck(cl) === false && document.getElementById("14").childElementCount > 0  && SwapPiecesCastle("longB",cl) === true) {
+          if (IsInCheck(cl) === false && document.getElementById("84").childElementCount > 0 && SwapPieces(king, document.getElementById("83"),cl)) {//  && SwapPiecesCastle("longB",cl) === true
           document.getElementById("83").appendChild(child);
           }
         }
