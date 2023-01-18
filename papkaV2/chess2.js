@@ -293,7 +293,7 @@ function End(text) {
   else if(text = "stalemate"){
     endText.innerText = "Stalemate(draw)"
   }
-  else{
+  else if(text === "Draw"){
     endText.innerText = "Draw"
   }
   
@@ -359,7 +359,7 @@ function Draw() {
     switch (element.innerText) {
       case pieces[0][5]:
         case pieces[1][5]:
-        pawns === true
+        pawns = true
         break;
         case pieces[0][3]:
           case pieces[1][3]:
@@ -387,9 +387,39 @@ function Draw() {
         break;
     }
   })
+  console.log("pawns:  " + pawns);
+  console.log("queens:  " + queens);
+  console.log("rooks:  " + rooks);
 
   if (!rooks && !queens && !pawns) {
-    if ((knightsB <= 2 && knightsW === 0 && bishopB === 0 && bishopW === 0) || (knightsB === 0 && knightsW <= 2 && bishopB === 0 && bishopW === 0) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 0) || (knightsB === 0 && knightsW === 0 && bishopB <= 0 && bishopW <= 1) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1) || (knightsB === 1 && knightsW === 1 && bishopB === 0 && bishopW === 0)) {
+    // if ((knightsB <= 2 && knightsW === 0 && bishopB === 0 && bishopW === 0) || (knightsB === 0 && knightsW <= 2 && bishopB === 0 && bishopW === 0) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 0) || (knightsB === 0 && knightsW === 0 && bishopB <= 0 && bishopW <= 1) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1) || (knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1) || (knightsB === 1 && knightsW === 1 && bishopB === 0 && bishopW === 0)) {
+    //   End("draw")
+    // }
+    console.log("vlizam");
+    if ((knightsB <= 2 && knightsW === 0 && bishopB === 0 && bishopW === 0)) {
+      console.log("vlizam 2");
+      End("draw")
+      
+    }
+    if ((knightsB === 0 && knightsW <= 2 && bishopB === 0 && bishopW === 0)) {
+      console.log("vlizam 2");
+      End("draw")
+      
+    }
+    if ((knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 0)) {
+      console.log("vlizam 2");
+      End("draw")
+    }
+    if ((knightsB === 0 && knightsW === 0 && bishopB <= 0 && bishopW <= 1)) {
+      console.log("vlizam 2");
+      End("draw")
+    }
+    if ((knightsB === 0 && knightsW === 0 && bishopB <= 1 && bishopW <= 1)) {
+      console.log("vlizam 2");
+      End("draw")
+    }
+    if ((knightsB === 1 && knightsW === 1 && bishopB === 0 && bishopW === 0)) {
+      console.log("vlizam 2");
       End("draw")
     }
   }
@@ -497,7 +527,7 @@ function Click(element) {
     Color();
     selectedFigure = false;
   }
-  // Draw()
+  Draw()
 GameOver()
   if (element.innerText.length !== 0 && !selectedFigure) {
     ColorLegal(element);
