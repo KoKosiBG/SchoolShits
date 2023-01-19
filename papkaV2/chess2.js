@@ -11,6 +11,11 @@ let container = document.getElementsByClassName("container")[0]
 let whiteImage = document.getElementsByClassName("white")[0]
 let blackImage = document.getElementsByClassName("black")[0]
 let white = true
+let resign = document.getElementsByClassName("resign")[0]
+let resign2 = document.getElementsByClassName("resign")[1]
+let draw = document.getElementsByTagName("i")[0]
+let draw2 = document.getElementsByTagName("i")[1]
+
 
 whiteImage.addEventListener('click', ()=>{
   whiteImage.style.border = "1px solid white"
@@ -45,8 +50,34 @@ document.getElementById("startButton").addEventListener("click", () => {
   playerOne.style.left = rect.left + "px"
   playerTwo.style.left = rect.left + "px"
 
-  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
-  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
+  playerOne.style.top =  String((Number(rect.top) - 70)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom) + 20)) + "px"
+
+
+  resign.style.display = "block"
+  resign.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+
+  resign.style.top = playerOne.style.top
+  resign.style.right = "52%"
+  resign.style.cursor = "default"
+
+  resign2.style.display = "block"
+  resign2.style.backgroundColor = "rgba(68, 108, 145, 1)"
+
+  resign2.style.top = playerTwo.style.top
+  resign2.style.right = "52%"
+
+  draw.style.display = "block"
+  draw.style.color = "rgba(68, 108, 145, 0.6)"
+  draw.style.top = playerOne.style.top
+  draw.style.right = "47%"
+  draw.style.cursor = "default"
+
+  draw2.style.display = "block"
+  draw2.style.color = "rgba(68, 108, 145, 1)"
+  draw2.style.top = playerTwo.style.top
+  draw2.style.right = "47%"
+  draw2.style.cursor = "pointer"
 
   SettingPieces()
 
@@ -99,6 +130,8 @@ function SettingPieces() {
 }
 
   window.addEventListener("resize",()=>{
+    playerOne.style.transition= "none"
+    playerTwo.style.transition= "none"
     
    rect = container.getBoundingClientRect();
 
@@ -107,8 +140,14 @@ function SettingPieces() {
  
   // playerTwo.style.top =  String((Number(rect.bottom) - 19.7)) + "px"
   // playerOne.style.top =  String((Number(rect.top) - 60)) + "px"
-  playerOne.style.top =  String((Number(rect.top) - 90)) + "px"
-  playerTwo.style.top =  String((Number(rect.bottom))) + "px"
+  playerOne.style.top =  String((Number(rect.top) - 70)) + "px"
+  playerTwo.style.top =  String((Number(rect.bottom) + 20)) + "px"
+
+  resign.style.top = playerOne.style.top
+  resign2.style.top = playerTwo.style.top
+  draw.style.top = playerOne.style.top
+  draw2.style.top = playerTwo.style.top
+
 
 
   })
@@ -132,6 +171,11 @@ function HodChanged() {
     playerTwo.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
     playerOne.style.opacity = "1"
     playerTwo.style.opacity = "0.7"
+
+    resign.style.cursor = "pointer"
+    resign.style.backgroundColor = "rgba(68, 108, 145, 1)"
+    resign2.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+    resign2.style.cursor = "default"
     
   }
   else{
@@ -139,6 +183,11 @@ function HodChanged() {
     playerTwo.style.backgroundColor = "rgba(68, 108, 145, 1)"
     playerOne.style.opacity = "0.7"
     playerTwo.style.opacity = "1"
+
+    resign2.style.cursor = "pointer"
+    resign2.style.backgroundColor = "rgba(68, 108, 145, 1)"
+    resign.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+    resign.style.cursor = "default"
   }
 }
 
