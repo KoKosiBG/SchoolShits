@@ -13,9 +13,8 @@ let blackImage = document.getElementsByClassName("black")[0]
 let white = true
 let resign = document.getElementsByClassName("resign")[0]
 let resign2 = document.getElementsByClassName("resign")[1]
-let draw = document.getElementsByTagName("i")[0]
-let draw2 = document.getElementsByTagName("i")[1]
-
+let draw = document.getElementsByClassName("draw")[0]
+let draw2 =document.getElementsByClassName("draw")[1]
 
 whiteImage.addEventListener('click', ()=>{
   whiteImage.style.border = "1px solid white"
@@ -53,35 +52,57 @@ document.getElementById("startButton").addEventListener("click", () => {
   playerOne.style.top =  String((Number(rect.top) - 70)) + "px"
   playerTwo.style.top =  String((Number(rect.bottom) + 20)) + "px"
 
+  rectPlayer = playerOne.getBoundingClientRect()
+
 
   resign.style.display = "block"
   resign.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
 
   resign.style.top = playerOne.style.top
-  resign.style.right = "52%"
+  resign.style.left = rectPlayer.right +  10 + "px"
   resign.style.cursor = "default"
 
   resign2.style.display = "block"
   resign2.style.backgroundColor = "rgba(68, 108, 145, 1)"
 
   resign2.style.top = playerTwo.style.top
-  resign2.style.right = "52%"
+  resign2.style.left = resign.style.left
 
   draw.style.display = "block"
-  draw.style.color = "rgba(68, 108, 145, 0.6)"
+  draw.style.opacity = "0.7"
   draw.style.top = playerOne.style.top
-  draw.style.right = "47%"
+  draw.style.left = rectPlayer.right + 70 + "px"
   draw.style.cursor = "default"
 
   draw2.style.display = "block"
-  draw2.style.color = "rgba(68, 108, 145, 1)"
+  draw2.style.opacity = "1"
   draw2.style.top = playerTwo.style.top
-  draw2.style.right = "47%"
+  draw2.style.left = draw.style.left
   draw2.style.cursor = "pointer"
+
+
 
   SettingPieces()
 
 });
+function Display(){
+  container.style.display = "none"
+  playerOne.style.display = "none"
+  playerTwo.style.display = "none"
+  draw.style.display = "none"
+  draw2.style.display = "none"
+  resign.style.display = "none"
+  resign2.style.display = "none"
+
+  document.getElementsByClassName("drawContainer")[0].style.display = "block"
+}
+let drawCount = 0;
+draw.addEventListener('click', ()=>{
+  Display()
+})
+draw2.addEventListener('click', ()=>{
+  Display()
+})
 
 function SettingPieces() {
 
@@ -143,10 +164,28 @@ function SettingPieces() {
   playerOne.style.top =  String((Number(rect.top) - 70)) + "px"
   playerTwo.style.top =  String((Number(rect.bottom) + 20)) + "px"
 
+  // resign.style.top = playerOne.style.top
+  // resign2.style.top = playerTwo.style.top
+  // draw.style.top = playerOne.style.top
+  // draw2.style.top = playerTwo.style.top
+
+
+  rectPlayer = playerOne.getBoundingClientRect()
+
+
+
   resign.style.top = playerOne.style.top
+  resign.style.left = rectPlayer.right +  10 + "px"
+
+
   resign2.style.top = playerTwo.style.top
+  resign2.style.left = resign.style.left
+
   draw.style.top = playerOne.style.top
+  draw.style.left = rectPlayer.right + 70 + "px"
+
   draw2.style.top = playerTwo.style.top
+  draw2.style.left = draw.style.left
 
 
 
@@ -164,6 +203,10 @@ squares.forEach(element =>{
     })
 
 })
+
+//
+resign.addEventListener("click", End)
+resign2.addEventListener("click", End)
 // 
 function HodChanged() {
   if (hod % 2 !== 0) {
@@ -176,6 +219,10 @@ function HodChanged() {
     resign.style.backgroundColor = "rgba(68, 108, 145, 1)"
     resign2.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
     resign2.style.cursor = "default"
+    draw.style.opacity = "1"
+    draw2.style.opacity = "0.6"
+    draw.style.cursor = "pointer"
+    draw2.style.cursor = "default"
     
   }
   else{
@@ -188,6 +235,12 @@ function HodChanged() {
     resign2.style.backgroundColor = "rgba(68, 108, 145, 1)"
     resign.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
     resign.style.cursor = "default"
+
+    draw2.style.opacity = "1"
+    draw.style.opacity = "0.6"
+
+    draw2.style.cursor = "pointer"
+    draw.style.cursor = "default"
   }
 }
 
@@ -325,6 +378,10 @@ function End(text) {
   document.getElementById("start").style.display = "none";
   document.getElementsByClassName("container")[0].style.display = "none";
   document.getElementsByClassName("end")[0].style.display = "block"
+  resign.style.display = "none"
+  resign2.style.display = "none"
+  draw.style.display = "none"
+  draw2.style.display = "none"
   playerOne.style.display = "none"
   playerTwo.style.display = "none"
   if (playerOne.innerText === "Denis" || playerTwo.innerText === "Denis") {
@@ -355,6 +412,16 @@ document.getElementById("restart").addEventListener('click', ()=>{
   container.style.display = "flex"
   document.getElementById("playerOne").style.display = "block"
   document.getElementById("playerTwo").style.display = "block"
+  resign.style.display = "block"
+  resign2.style.display = "block"
+  draw.style.display = "block"
+  draw2.style.display = "block"
+  playerOne.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+  playerTwo.style.backgroundColor = "rgba(68, 108, 145, 1)"
+  resign.style.backgroundColor = "rgba(68, 108, 145, 0.6)"
+  resign2.style.backgroundColor = "rgba(68, 108, 145, 1)"
+  draw.style.opacity = "0.7"
+  draw2.style.opacity = "1"
   rect = container.getBoundingClientRect
   playerOne.style.left = rect.left + "px"
     playerTwo.style.left = rect.left + "px"
