@@ -95,6 +95,24 @@ function Display(){
   resign2.style.display = "none"
 
   document.getElementsByClassName("drawContainer")[0].style.display = "block"
+  document.getElementsByClassName("yesOrNo")[0].addEventListener('click', ()=>{
+    document.getElementsByClassName("drawContainer")[0].style.display = "none"
+    End("draw")
+
+  })
+
+  document.getElementsByClassName("yesOrNo")[1].addEventListener('click', ()=>{
+    container.style.display = "flex"
+  playerOne.style.display = "block"
+  playerTwo.style.display = "block"
+  draw.style.display = "block"
+  draw2.style.display = "block"
+  resign.style.display = "block"
+  resign2.style.display = "block"
+
+  document.getElementsByClassName("drawContainer")[0].style.display = "none"
+    
+  })
 }
 let drawCount = 0;
 draw.addEventListener('click', ()=>{
@@ -430,6 +448,9 @@ document.getElementById("restart").addEventListener('click', ()=>{
   SettingPieces()
 
 })
+
+//
+
 // Checks if legal moves are available //
 function HasMoves() {
   let color = 0
