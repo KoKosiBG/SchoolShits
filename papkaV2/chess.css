@@ -149,7 +149,7 @@ z-index: 2;
     position: absolute;
     width: 300px;;
     height: 350px;
-    left: 1400px;
+    /* left: 1400px; */
     display: none;
     flex-direction: column;
 }
@@ -166,7 +166,7 @@ z-index: 2;
     
 }
 #rook, #knight{
-    background-color: #2c465e;
+    background-color: #446c91;
 }
 #queen{
     border-top-right-radius: 15px;
