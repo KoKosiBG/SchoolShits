@@ -132,6 +132,7 @@ z-index: 2;
     justify-content: center;
     outline: none;
     border: none;
+    position: relative;
 }
 
 
@@ -177,10 +178,11 @@ z-index: 2;
     border-bottom-left-radius: 15px;
 }
 .legal,.castle{
-    width: 25px;
-    height: 25px;
+    width: 35%;
+    height: 35%;
     border-radius: 50%;
     position: absolute;
+
 }
 .legal{
     background-color: rgb(92, 146, 196);
@@ -510,4 +512,17 @@ box-shadow: 0px 0px 29px 0px rgba(114,157,242,1);
     left: 70%;
     top: 60%;
     animation-delay: -0.4s;
+  }
+
+  @media screen and (max-width: 800px) {
+    .container, .end, #start {
+      width: 300px;
+      height: 300px;
+      
+    }
+    .box{
+        font-size: 25px; 
+    }
+
+
   }
